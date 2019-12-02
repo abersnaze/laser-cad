@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"2d-algebra@0.4.2":
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/2d-algebra/-/2d-algebra-0.4.2.tgz#d8ef15c468a303989688f3a85c64c2f42e139c34"
+  integrity sha512-XKyXgj34Ya5mDQD61jeG24chn+2oPVWCJO8q3nhRiv70P9yWxj5Y4CrHLqCCNm86DVBd89J4kFSE+E1XFaATOA==
+
 "@ampproject/toolbox-core@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@ampproject/toolbox-core/-/toolbox-core-1.1.1.tgz#540c8f3ab0f5d1faa1ba35282cd5f5f3f0e16a76"
@@ -2725,6 +2730,11 @@ ignore-walk@^3.0.1:
   integrity sha512-m7o6xuOaT1aqheYHKf8W6J5pYH85ZI9w077erOzLje3JsB1gkafkAhHHY19dqjulgIZHFm32Cp5uNZgcQqdJKw==
   dependencies:
     minimatch "^3.0.4"
+
+immutable@^4.0.0-rc.12:
+  version "4.0.0-rc.12"
+  resolved "https://registry.yarnpkg.com/immutable/-/immutable-4.0.0-rc.12.tgz#ca59a7e4c19ae8d9bf74a97bdf0f6e2f2a5d0217"
+  integrity sha512-0M2XxkZLx/mi3t8NVwIm1g8nHoEmM9p9UBl/G9k4+hm0kBgOVdMV/B3CY5dQ8qG8qc80NN4gDV4HQv6FTJ5q7A==
 
 import-cwd@^2.0.0:
   version "2.1.0"

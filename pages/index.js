@@ -8,10 +8,14 @@ export const AppContext = React.createContext();
 export default () => {
     const [drawing, drawingDispatch] = React.useReducer(drawingReducer, emptyDrawing)
     const [select, selectDispatch] = React.useReducer(selectionReducer, emptySelection);
+
     const appContextValue = React.useMemo(() => {
         return {
             state: { drawing, select },
-            dispatch: (action) => selectDispatch(drawingDispatch(state.drawing, action), action)
+            dispatch: (action) => {
+                drawingDispatch(action);
+                selectDispatch(action);
+            }
         };
     }, [drawing, drawingDispatch, select, selectDispatch]);
 
@@ -25,6 +29,7 @@ export default () => {
     </>);
 };
 
+// https://github.com/chrvadala/react-svg-pan-zoom
 // http://www.petercollingridge.co.uk/tutorials/svg/interactive/dragging/
 // https://davidmathlogic.com/colorblind/#%23D81B60-%231E88E5-%23FFC107-%2371b288
 

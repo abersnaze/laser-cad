@@ -5,6 +5,12 @@ import { transform } from 'transformation-matrix';
 
 const Doodle = () => (<>
     <AppContext.Consumer>{({ state, dispatch }) => {
+        const handleMouseEnter = (evt) => {
+            transform
+            const svg = evt.target;
+            const CTM = svg.getScreenCTM();
+            dispatch(setCusor((evt.clientX - CTM.e) / CTM.a, (evt.clientY - CTM.f) / CTM.d), evt.clientX, evt.clientY);
+        };
         const handleMouseMove = (evt) => {
             transform
             const svg = evt.target;
@@ -25,6 +31,7 @@ const Doodle = () => (<>
             style={{ cursor: "crosshair" }}
             viewBox={[0, 0, drawing.material.width, drawing.material.height].join(" ")}
             preserveAspectRatio="xMidYMid meet"
+            onMouseEnter={handleMouseEnter}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             onMouseDown={handleMouseDown}

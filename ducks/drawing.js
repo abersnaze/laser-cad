@@ -22,7 +22,7 @@ export const emptyDrawing = undoableInit({
     transform: identity(),
     material: { width: 18 * units.inch, height: 12 * units.inch },
     shapes: [
-        { type: "line", x1, y1, x2, y2 },
+        { type: 'line', x1, y1, x2, y2 },
         { type: 'point', x: x1, y: y1 },
         { type: 'point', x: x2, y: y2 }
     ],

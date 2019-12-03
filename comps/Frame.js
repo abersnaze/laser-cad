@@ -1,6 +1,6 @@
 import ConstraintTools from "./ConstraintTools";
 import DocumentTools from "./DocumentTools";
-import Doodle from "./Doodle";
+import Doodle from "./draw/Doodle";
 import DrawingTools from "./DrawingTools";
 import InfoPanel from "./InfoPanel";
 

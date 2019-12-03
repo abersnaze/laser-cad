@@ -1,7 +1,8 @@
-import { AppContext } from '../pages/index'
+import { AppContext } from '../../pages/index'
 import Shape from './Shape';
-import { setCusor, clearCusor } from '../ducks/selection';
+import { setCusor, clearCusor } from '../../ducks/selection';
 import { transform } from 'transformation-matrix';
+import Cursor from './Cursor';
 
 const Doodle = () => (<>
     <AppContext.Consumer>{({ state, dispatch }) => {
@@ -49,24 +50,12 @@ const Doodle = () => (<>
             </g>
             <g>{drawing.shapes.map((shape, idx) => <Shape key={idx} shape={shape} solution={drawing.solution} />)}</g>
             {state.select.svg ?
-                <g>
-                    <line
-                        x1={state.select.svg.x}
-                        y1={0}
-                        x2={state.select.svg.x}
-                        y2={drawing.material.height}
-                        stroke="#000000"
-                        strokeOpacity="0.1"
-                    />
-                    <line
-                        x1={0}
-                        y1={state.select.svg.y}
-                        x2={drawing.material.width}
-                        y2={state.select.svg.y}
-                        stroke="#000000"
-                        strokeOpacity="0.1"
-                    />
-                </g> : undefined
+                <Cursor
+                    x={state.select.svg.x}
+                    y={state.select.svg.y}
+                    h={drawing.material.height}
+                    w={drawing.material.width}
+                /> : undefined
             }
         </svg>
     }}</AppContext.Consumer>

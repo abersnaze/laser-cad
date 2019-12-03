@@ -41,13 +41,13 @@ const DrawingTools = () => (<>
     </Button.Group>
     <Button.Group floated="right">
         <Popup
-            content='Tool for putting down the shape of existing component'
+            content='Cut drawing mode'
             position='bottom right'
             mouseEnterDelay={3000}
             on={['hover']}
             trigger={<Button active icon={{ className: 'CAD-Icons CutMode' }} />} />
         <Popup
-            content='Tool for putting down the shape of existing component'
+            content='Reference drawing mode'
             position='bottom right'
             mouseEnterDelay={3000}
             on={['hover']}

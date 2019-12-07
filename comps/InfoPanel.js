@@ -18,25 +18,23 @@ const InfoPanel = () => {
                 <Accordion.Title
                     index={0}
                     onClick={handleClick}
-                    active={expanded.has(0)}>
-                    <Icon name="dropdown" />
-                    Constraints
-            </Accordion.Title>
+                    active={expanded.has(0)}
+                    icon="dropdown"
+                    content="Constraints"
+                />
                 <Accordion.Content active={expanded.has(0)}>
                     asdf
-                <List>
-                    </List>
                 </Accordion.Content>
                 <Accordion.Title
                     index={1}
                     onClick={handleClick}
-                    active={expanded.has(1)}>
-                    <Icon name="dropdown" />
-                    Variables
-            </Accordion.Title>
+                    active={expanded.has(1)}
+                    icon="dropdown"
+                    content="Variables"
+                />
                 <Accordion.Content active={expanded.has(1)}>
                     qwer
-            </Accordion.Content>
+                </Accordion.Content>
             </Accordion>
         </div>
     </>);

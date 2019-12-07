@@ -1,23 +1,23 @@
 import Head from 'next/head';
 import Frame from "../comps/Frame";
 import { drawingReducer, emptyDrawing } from "../ducks/drawing";
-import { emptySelection, selectionReducer } from "../ducks/selection";
+import { initialApplication, applicationReducer } from "../ducks/app";
 
 export const AppContext = React.createContext();
 
 export default () => {
     const [drawing, drawingDispatch] = React.useReducer(drawingReducer, emptyDrawing)
-    const [select, selectDispatch] = React.useReducer(selectionReducer, emptySelection);
+    const [app, appDispatch] = React.useReducer(applicationReducer, initialApplication);
 
     const appContextValue = React.useMemo(() => {
         return {
-            state: { drawing, select },
+            state: { drawing, app },
             dispatch: (action) => {
                 drawingDispatch(action);
-                selectDispatch(action);
+                appDispatch(action);
             }
         };
-    }, [drawing, drawingDispatch, select, selectDispatch]);
+    }, [drawing, drawingDispatch, app, appDispatch]);
 
     return (<>
         <Head>

@@ -1,11 +1,7 @@
 import { AutoSizer } from 'react-virtualized';
-import { clearCusor, clearSelection, finishAreaSelection, setCusor, setSelection, startAreaSelection, toggleSelection, setHighlight, clearHighlight } from '../../ducks/app';
-import { AppContext } from '../../pages/index';
-import Cursor from './Cursor';
-import Halo from './halo';
-import SelectionArea from './SelectionArea';
-import Shape from './shapes';
+import { clearCusor, clearSelection, finishAreaSelection, setCusor, startAreaSelection } from '../../ducks/app';
 import { setPixel } from '../../ducks/drawing';
+import { AppContext } from '../../pages/index';
 
 const inside = (point, area) => {
     if (point.x < area.x)
@@ -19,7 +15,7 @@ const inside = (point, area) => {
     return true;
 }
 
-const Doodle = () => (<>
+const Doodle = ({ children }) => (<>
     <AutoSizer>{({ width, height }) => {
         return <AppContext.Consumer>{({ state, dispatch }) => {
             const handleMouseEnter = (evt) => {
@@ -40,13 +36,10 @@ const Doodle = () => (<>
                 dispatch(startAreaSelection())
             };
             const handleMouseUp = (evt) => {
-                console.log("up");
-                
                 evt.stopPropagation();
                 dispatch(finishAreaSelection(evt.shiftKey));
             };
             const handleClick = (evt) => {
-                console.log("click");
                 if (!evt.shiftKey) {
                     dispatch(clearSelection());
                 }
@@ -78,70 +71,7 @@ const Doodle = () => (<>
                 onClick={handleClick}
                 onContextMenu={handleContextClick}
             >
-                <g>
-                    {/* boundry */}
-                    <rect
-                        x={drawing.px / 2} y={drawing.px / 2}
-                        width={drawing.material.width - drawing.px}
-                        height={drawing.material.height - drawing.px}
-                        stroke="#000000"
-                        strokeWidth={drawing.px}
-                        fill="none"
-                    />
-                </g>
-                <g>
-                    {/* shapes */}
-                    {drawing.shapes.map((shape, idx) => {
-                        return <Shape
-                            key={idx}
-                            shape={shape}
-                            px={drawing.px}
-                            solution={drawing.solution}
-                            isSelected={state.app.selected.has(shape)}
-                            isHighlighted={state.app.highlight.some(vs => vs.has(shape))}
-                        />;
-                    })}
-                </g>
-                <g
-                    fill="none"
-                    stroke="#000000"
-                    strokeOpacity="0.2"
-                    strokeWidth={drawing.px}
-                >
-                    {/* cursor and area selection */}
-                    {state.app.cursor === undefined ? undefined :
-                        <Cursor
-                            cursor={state.app.cursor.svg}
-                            material={drawing.material}
-                        />}
-                    {state.app.area === undefined ? undefined :
-                        <SelectionArea
-                            area={state.app.area}
-                        />}
-                </g>
-                <g opacity="0">
-                    {drawing.shapes.map((shape, idx) => {
-                        return <Halo
-                            key={idx}
-                            shape={shape}
-                            px={drawing.px}
-                            solution={drawing.solution}
-                            onMouseEnter={(evt) => {
-                                evt.stopPropagation();
-                                dispatch(setHighlight([shape], 'cursor'));
-                            }}
-                            onMouseLeave={(evt) => {
-                                evt.stopPropagation();
-                                dispatch(clearHighlight('cursor'));
-                            }}
-                            onClick={(evt) => {
-                                evt.stopPropagation();
-                                dispatch((evt.shiftKey)
-                                    ? toggleSelection(shape)
-                                    : setSelection(shape));
-                            }} />;
-                    })}
-                </g>
+                {children}
             </svg>
         }}
         </AppContext.Consumer>

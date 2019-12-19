@@ -1,4 +1,4 @@
-const Line = ({ shape, px, solution, isSelected, isHighlighted }) => {
+const Line = ({ shape, px, solution, selected, isHighlighted }) => {
     const { x: x1, y: y1 } = shape.a;
     const { x: x2, y: y2 } = shape.b;
 
@@ -8,7 +8,7 @@ const Line = ({ shape, px, solution, isSelected, isHighlighted }) => {
         x2={solution.get(x2)}
         y2={solution.get(y2)}
         strokeWidth={px}
-        stroke="#000000" />;
+        stroke={isHighlighted ? "#00FF00" : selected.has(shape.a) && selected.has(shape.b) ? "#FF0000" : "#000000"} />;
 };
 
 export default Line;

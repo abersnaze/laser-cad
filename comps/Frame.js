@@ -1,15 +1,28 @@
+import Boarder from "./Boarder";
 import ConstraintTools from "./ConstraintTools";
 import DocumentTools from "./DocumentTools";
+import Cursor from "./draw/Cursor";
 import Doodle from "./draw/Doodle";
+import Halos from "./draw/Halos";
+import Shapes from "./draw/Shapes";
 import DrawingTools from "./DrawingTools";
 import InfoPanel from "./InfoPanel";
+import Aligns from "./draw/Aligns";
 
 const Frame = () => (<>
     <div className="parent">
         <div className="top"><DocumentTools /><DrawingTools /></div>
         <div className="left"><ConstraintTools /></div>
         <div className="right"><InfoPanel /></div>
-        <div className="content"><Doodle /></div>
+        <div className="content">
+            <Doodle >
+                <Boarder />
+                <Shapes />
+                <Cursor />
+                <Aligns />
+                <Halos />
+            </Doodle>
+        </div>
     </div>
     <style jsx>{`
         .parent {

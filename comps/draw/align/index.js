@@ -6,11 +6,11 @@ const typeComponents = {
     line: Line,
 }
 
-const Halo = ({ shape, px, material, solution, selected, onClick, onMouseEnter, onMouseLeave }) => {
-    const HaloComp = typeComponents[shape.type];
-    if (HaloComp === undefined)
+const Align = ({ shape, px, material, solution, selected, onClick, onMouseEnter, onMouseLeave }) => {
+    const AlignComp = typeComponents[shape.type];
+    if (AlignComp === undefined)
         return null;
-    return <HaloComp
+    return <AlignComp
         shape={shape}
         px={px}
         material={material}
@@ -22,4 +22,4 @@ const Halo = ({ shape, px, material, solution, selected, onClick, onMouseEnter, 
     />;
 };
 
-export default Halo;
+export default Align;

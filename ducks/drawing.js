@@ -13,6 +13,8 @@ export function setPixel(px) {
     return { type: SET_PIXEL, payload: px };
 }
 
+// 10160 = 2*127*5*2*2*2
+// divisable by 254 (inches), 10 (metric), 16 (EMF fixed point)
 export const units = {
     inch: 25.4,
     mm: 1,
@@ -31,9 +33,10 @@ export const emptyDrawing = undoableInit({
     material: { width: 18 * units.inch, height: 12 * units.inch },
     shapes: [
         { type: 'line', mode: 'cut', a: pointA, b: pointB },
-        pointA, pointB,
+        pointA,
+        pointB,
     ],
-    solution: Map([[x1, 52], [y1, 140], [x2, 300], [y2, 200]]),
+    solution: Map([[x2, 52], [y2, 140], [x1, 80], [y1, 80]]),
     constraints: [],
 });
 

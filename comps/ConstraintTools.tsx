@@ -1,12 +1,12 @@
 import { Button } from "semantic-ui-react";
 
 const ConstraintTools = () => (<>
-    <Button icon={{ className: 'CAD-Icons TangentCons' }} />
-    <Button icon={{ className: 'CAD-Icons ParallelCons' }} />
-    <Button icon={{ className: 'CAD-Icons HorizontalCons' }} />
-    <Button icon={{ className: 'CAD-Icons VerticalCons' }} />
-    <Button icon={{ className: 'CAD-Icons DistanceCons' }} />
-    <Button icon={{ className: 'CAD-Icons RadiusCons' }} />
+    <Button icon={{ className: "CAD-Icons TangentCons" }} />
+    <Button icon={{ className: "CAD-Icons ParallelCons" }} />
+    <Button icon={{ className: "CAD-Icons HorizontalCons" }} />
+    <Button icon={{ className: "CAD-Icons VerticalCons" }} />
+    <Button icon={{ className: "CAD-Icons DistanceCons" }} />
+    <Button icon={{ className: "CAD-Icons RadiusCons" }} />
     <style jsx global>{`
 @font-face {
     font-family: CAD-Icons;

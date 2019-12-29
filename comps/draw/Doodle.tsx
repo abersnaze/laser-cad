@@ -1,88 +1,25 @@
-import { AutoSizer } from 'react-virtualized';
-import { clearCusor, clearSelection, finishAreaSelection, setCusor, startAreaSelection } from '../../ducks/app';
-import { setPixel } from '../../ducks/drawing';
-import { AppContext } from '../../pages/index';
-
-const inside = (point, area) => {
-    if (point.x < area.x)
-        return false;
-    if (point.y < area.y)
-        return false;
-    if (area.x + area.width < point.x)
-        return false;
-    if (area.y + area.height < point.y)
-        return false;
-    return true;
-}
+import ViewPort from "./ViewPort";
 
 const Doodle = ({ }) => (<>
-    <AutoSizer>{({ width, height }) => {
-        return <AppContext.Consumer>{({ state, dispatch }) => {
-            const handleMouseEnter = (evt) => {
-                const svg = evt.target;
-                const CTM = svg.getScreenCTM();
-                dispatch(setCusor(
-                    (evt.clientX - CTM.e) / CTM.a,
-                    (evt.clientY - CTM.f) / CTM.d,
-                    evt.clientX,
-                    evt.clientY));
-            };
-            const handleMouseMove = (evt) => {
-                const svg = evt.target;
-                const CTM = svg.getScreenCTM();
-                dispatch(setCusor(
-                    (evt.clientX - CTM.e) / CTM.a,
-                    (evt.clientY - CTM.f) / CTM.d,
-                    evt.clientX,
-                    evt.clientY));
-            };
-            const handleMouseLeave = (evt) => {
-                dispatch(clearCusor());
-            };
-            const handleMouseDown = (evt) => {
-                evt.preventDefault();
-                dispatch(startAreaSelection())
-            };
-            const handleMouseUp = (evt) => {
-                evt.stopPropagation();
-                dispatch(finishAreaSelection(evt.shiftKey));
-            };
-            const handleClick = (evt) => {
-                if (!evt.shiftKey) {
-                    dispatch(clearSelection());
-                }
-            }
-            const handleContextClick = (evt) => {
-                evt.preventDefault();
-            }
-
-            const drawing = state.drawing.present;
-
-            return <svg
-                width={width}
-                height={height}
-                style={{ cursor: "none" }}
-                viewBox={[0, 0, drawing.material.width, drawing.material.height].join(" ")}
-                preserveAspectRatio="xMidYMin meet"
-                ref={(realSvg) => {
-                    if (realSvg) {
-                        const px = 1 / realSvg.getScreenCTM().a;
-                        if (drawing.px != px)
-                            dispatch(setPixel(px));
-                    }
-                }}
-                onMouseEnter={handleMouseEnter}
-                onMouseMove={handleMouseMove}
-                onMouseLeave={handleMouseLeave}
-                onMouseDown={handleMouseDown}
-                onMouseUp={handleMouseUp}
-                onClick={handleClick}
-                onContextMenu={handleContextClick}
-            >
-            </svg>
+    <ViewPort
+        width={0}
+        height={0}
+        onMove={() => {
+            // nothing
         }}
-        </AppContext.Consumer>
-    }}</AutoSizer>
+        onDown={() => {
+            // nothing
+        }}
+        onZoom={() => {
+            // nothing
+        }}
+        onPan={() => {
+            // nothing
+        }}
+        onUp={() => {
+            // nothing
+        }}
+    />
 </>);
 
 // function draggable(element) {

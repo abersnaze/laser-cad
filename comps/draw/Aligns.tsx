@@ -1,6 +1,6 @@
-import Align from "./align";
+import { clearHighlight, setHighlight, setSelection, toggleSelection } from "../../ducks/app";
 import { AppContext } from "../../pages";
-import { setHighlight, clearHighlight, toggleSelection, setSelection } from "../../ducks/app";
+import Align from "./align";
 
 const Aligns = () => (
     <AppContext.Consumer>{({ state, dispatch }) => {
@@ -17,11 +17,11 @@ const Aligns = () => (
                     selected={state.app.selected}
                     onMouseEnter={(evt) => {
                         evt.stopPropagation();
-                        dispatch(setHighlight([shape], 'cursor'));
+                        dispatch(setHighlight([shape], "cursor"));
                     }}
                     onMouseLeave={(evt) => {
                         evt.stopPropagation();
-                        dispatch(clearHighlight('cursor'));
+                        dispatch(clearHighlight("cursor"));
                     }}
                     onClick={(evt) => {
                         evt.stopPropagation();
@@ -30,7 +30,7 @@ const Aligns = () => (
                             : setSelection());
                     }} />;
             })}
-        </g>
+        </g>;
     }}
     </AppContext.Consumer>
 );

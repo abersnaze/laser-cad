@@ -3,55 +3,55 @@ import { Button, Popup } from "semantic-ui-react";
 const DrawingTools = () => (<>
     <Button.Group floated="right">
         <Popup
-            content='Tool for selecting existing elements'
-            position='bottom right'
+            content="Tool for selecting existing elements"
+            position="bottom right"
             mouseEnterDelay={3000}
-            on={['hover']}
-            trigger={<Button active icon={{ className: 'CAD-Icons SelectTool' }} />} />
+            on={["hover"]}
+            trigger={<Button active icon={{ className: "CAD-Icons SelectTool" }} />} />
         <Popup
-            content='Tool for drawing a fixed point'
-            position='bottom right'
+            content="Tool for drawing a fixed point"
+            position="bottom right"
             mouseEnterDelay={3000}
-            on={['hover']}
+            on={["hover"]}
             trigger={<Button icon="anchor" />} />
         <Popup
-            content='Tool for drawing a line segment'
-            position='bottom right'
+            content="Tool for drawing a line segment"
+            position="bottom right"
             mouseEnterDelay={3000}
-            on={['hover']}
-            trigger={<Button icon={{ className: 'CAD-Icons LineTool' }} />} />
+            on={["hover"]}
+            trigger={<Button icon={{ className: "CAD-Icons LineTool" }} />} />
         <Popup
-            content='Tool for drawing a circle'
-            position='bottom right'
+            content="Tool for drawing a circle"
+            position="bottom right"
             mouseEnterDelay={3000}
-            on={['hover']}
-            trigger={<Button icon={{ className: 'CAD-Icons CircleTool' }} />} />
+            on={["hover"]}
+            trigger={<Button icon={{ className: "CAD-Icons CircleTool" }} />} />
         <Popup
-            content='Tool for drawing the segement of a circle'
-            position='bottom right'
+            content="Tool for drawing the segement of a circle"
+            position="bottom right"
             mouseEnterDelay={3000}
-            on={['hover']}
-            trigger={<Button icon={{ className: 'CAD-Icons ArcTool' }} />} />
+            on={["hover"]}
+            trigger={<Button icon={{ className: "CAD-Icons ArcTool" }} />} />
         <Popup
-            content='Tool for putting down the shape of existing component'
-            position='bottom right'
+            content="Tool for putting down the shape of existing component"
+            position="bottom right"
             mouseEnterDelay={3000}
-            on={['hover']}
-            trigger={<Button icon={{ className: 'CAD-Icons CloneTool' }} />} />
+            on={["hover"]}
+            trigger={<Button icon={{ className: "CAD-Icons CloneTool" }} />} />
     </Button.Group>
     <Button.Group floated="right">
         <Popup
-            content='Cut drawing mode'
-            position='bottom right'
+            content="Cut drawing mode"
+            position="bottom right"
             mouseEnterDelay={3000}
-            on={['hover']}
-            trigger={<Button active icon={{ className: 'CAD-Icons CutMode' }} />} />
+            on={["hover"]}
+            trigger={<Button active icon={{ className: "CAD-Icons CutMode" }} />} />
         <Popup
-            content='Reference drawing mode'
-            position='bottom right'
+            content="Reference drawing mode"
+            position="bottom right"
             mouseEnterDelay={3000}
-            on={['hover']}
-            trigger={<Button icon={{ className: 'CAD-Icons RefMode' }} />} />
+            on={["hover"]}
+            trigger={<Button icon={{ className: "CAD-Icons RefMode" }} />} />
 
     </Button.Group>
     <style jsx global>{`

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const Line = ({ shape, px, solution, onMouseEnter, onMouseLeave }) => {
     const ay = solution.get(shape.a.y);

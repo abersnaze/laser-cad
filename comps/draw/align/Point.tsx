@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const Point = ({ shape, px, material, solution, selected, onClick, onMouseEnter, onMouseLeave }) => {
     // if (selected.has(shape))

@@ -1,45 +1,45 @@
 
 export function undoableInit(initState) {
     return {
+        future: [],
         past: [],
         present: initState,
-        future: []
     };
 }
 
 export function undoableReducer(initialState, reducer) {
     // Return a reducer that handles undo and redo
-    return function (state = initialState, action) {
-        const { past, present, future } = state
+    return (state = initialState, action) => {
+        const { past, present, future } = state;
 
         switch (action.type) {
-            case 'UNDO':
-                const previous = past[past.length - 1]
-                const newPast = past.slice(0, past.length - 1)
+            case "UNDO":
+                const previous = past[past.length - 1];
+                const newPast = past.slice(0, past.length - 1);
                 return {
+                    future: [present, ...future],
                     past: newPast,
                     present: previous,
-                    future: [present, ...future]
-                }
-            case 'REDO':
-                const next = future[0]
-                const newFuture = future.slice(1)
+                };
+            case "REDO":
+                const next = future[0];
+                const newFuture = future.slice(1);
                 return {
+                    future: newFuture,
                     past: [...past, present],
                     present: next,
-                    future: newFuture
-                }
+                };
             default:
                 // Delegate handling the action to the passed reducer
-                const newPresent = reducer(present, action)
+                const newPresent = reducer(present, action);
                 if (present === newPresent) {
-                    return state
+                    return state;
                 }
                 return {
+                    future: [],
                     past: [...past, present],
                     present: newPresent,
-                    future: []
-                }
+                };
         }
-    }
+    };
 }

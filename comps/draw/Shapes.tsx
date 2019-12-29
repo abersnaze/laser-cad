@@ -1,5 +1,5 @@
 import { AppContext } from "../../pages";
-import Shape from './shape';
+import Shape from "./shape";
 
 const Shapes = () => (
     <AppContext.Consumer>{({ state, dispatch }) => {
@@ -15,7 +15,7 @@ const Shapes = () => (
                     isHighlighted={false}
                 />;
             })}
-        </g>
+        </g>;
     }}
     </AppContext.Consumer>
 );

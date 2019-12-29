@@ -1,9 +1,15 @@
+import React from "react";
+
 const Draggable = () => {
     React.useEffect(() => {
         if (process.browser) {
-            document.addEventListener()
+            document.addEventListener("", () => {
+                // do nothing
+            });
         }
-        if (typeof document !== 'undefined') {}
+        if (typeof document !== "undefined") {
+            // do nothing
+        }
     });
     return <></>;
 };

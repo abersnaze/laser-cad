@@ -1,12 +1,13 @@
-import React from 'react';
+import React from "react";
 
 const PointSlope = ({ intercept, slope, material, strokeWidth, onMouseEnter, onMouseLeave }) => {
-    const [h, w] = [material.height, material.width]
-    var a, b;
+    const [h, w] = [material.height, material.width];
+    let a;
+    let b;
     if (slope > 0) {
         a = (intercept >= 0)
             ? { x: 0, y: intercept }
-            : { x: (0 - intercept) / slope, y: 0 }
+            : { x: (0 - intercept) / slope, y: 0 };
 
         const rightIntercept = slope * w + intercept;
 
@@ -16,7 +17,7 @@ const PointSlope = ({ intercept, slope, material, strokeWidth, onMouseEnter, onM
     } else {
         a = (intercept < h)
             ? { x: 0, y: intercept }
-            : { x: (h - intercept) / slope, y: h }
+            : { x: (h - intercept) / slope, y: h };
 
         const rightIntercept = slope * w + intercept;
 
@@ -34,7 +35,7 @@ const PointSlope = ({ intercept, slope, material, strokeWidth, onMouseEnter, onM
         onMouseLeave={onMouseLeave}
         opacity=".1"
     />;
-}
+};
 
 const Line = ({ shape, px, material, solution, selected, onMouseEnter, onMouseLeave }) => {
     // if (selected.has(shape.a) && selected.has(shape.b)) {
@@ -52,9 +53,27 @@ const Line = ({ shape, px, material, solution, selected, onMouseEnter, onMouseLe
     const strokeWidth = 20 * px;
 
     return (<>
-        <PointSlope intercept={interceptAB} slope={1 * slope} material={material} strokeWidth={strokeWidth} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} />
-        <PointSlope intercept={interceptA} slope={-1 / slope} material={material} strokeWidth={strokeWidth} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} />
-        <PointSlope intercept={interceptB} slope={-1 / slope} material={material} strokeWidth={strokeWidth} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} />
+        <PointSlope
+            intercept={interceptAB}
+            slope={1 * slope}
+            material={material}
+            strokeWidth={strokeWidth}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave} />
+        <PointSlope
+            intercept={interceptA}
+            slope={-1 / slope}
+            material={material}
+            strokeWidth={strokeWidth}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave} />
+        <PointSlope
+            intercept={interceptB}
+            slope={-1 / slope}
+            material={material}
+            strokeWidth={strokeWidth}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave} />
     </>);
 };
 

@@ -1,12 +1,12 @@
-import { Accordion, List, Icon } from "semantic-ui-react";
-import React from 'react';
+import React from "react";
+import { Accordion, Icon, List } from "semantic-ui-react";
 
 const InfoPanel = () => {
     const [expanded, setExpanded] = React.useState(new Set());
     const handleClick = (e, { index, active }) => {
         const newExpanded = new Set(expanded);
         if (active) {
-            newExpanded.delete(index)
+            newExpanded.delete(index);
         } else {
             newExpanded.add(index);
         }

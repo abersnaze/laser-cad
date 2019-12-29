@@ -1,6 +1,6 @@
 import { AppContext } from "../../pages";
-import SelectionArea from "./SelectionArea";
 import Reticle from "./Reticle";
+import SelectionArea from "./SelectionArea";
 
 const Cursor = ({ }) => (
     <AppContext.Consumer>{({ state }) => (

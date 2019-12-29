@@ -1,6 +1,6 @@
-import Halo from "./halo";
+import { clearHighlight, setHighlight, setSelection, toggleSelection } from "../../ducks/app";
 import { AppContext } from "../../pages";
-import { setHighlight, clearHighlight, toggleSelection, setSelection } from "../../ducks/app";
+import Halo from "./halo";
 
 const Halos = () => (
     <AppContext.Consumer>{({ state, dispatch }) => {
@@ -21,11 +21,11 @@ const Halos = () => (
                     selected={state.app.selected}
                     onMouseEnter={(evt) => {
                         evt.stopPropagation();
-                        dispatch(setHighlight([shape], 'cursor'));
+                        dispatch(setHighlight([shape], "cursor"));
                     }}
                     onMouseLeave={(evt) => {
                         evt.stopPropagation();
-                        dispatch(clearHighlight('cursor'));
+                        dispatch(clearHighlight("cursor"));
                     }}
                     onClick={(evt) => {
                         evt.stopPropagation();
@@ -34,7 +34,7 @@ const Halos = () => (
                             : setSelection());
                     }} />;
             })}
-        </g>
+        </g>;
     }}
     </AppContext.Consumer>
 );

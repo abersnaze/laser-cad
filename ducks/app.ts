@@ -1,20 +1,20 @@
 import { Map, Set } from "immutable";
 
-const SET_HIGHLIGH = 'SET_HIGHLIGH';
-const CLEAR_HIGHLIGHT = 'CLEAR_HIGHLIGHT';
+const SET_HIGHLIGH = "SET_HIGHLIGH";
+const CLEAR_HIGHLIGHT = "CLEAR_HIGHLIGHT";
 
-const SET_SELECTION = 'SET_SELECTION';
-const TOGGLE_SELECTION = 'TOGGLE_SELECTION';
-const CLEAR_SELECTION = 'CLEAR_SELECTION';
+const SET_SELECTION = "SET_SELECTION";
+const TOGGLE_SELECTION = "TOGGLE_SELECTION";
+const CLEAR_SELECTION = "CLEAR_SELECTION";
 
-const START_AREA_SELECTION = 'START_AREA_SELECTION';
-const FINISH_AREA_SELECTION = 'FINISH_AREA_SELECTION';
+const START_AREA_SELECTION = "START_AREA_SELECTION";
+const FINISH_AREA_SELECTION = "FINISH_AREA_SELECTION";
 
-const SELECT_TOOL = 'SELECT_TOOL';
-const SELECT_MODE = 'SELECT_MODE';
+const SELECT_TOOL = "SELECT_TOOL";
+const SELECT_MODE = "SELECT_MODE";
 
-const SET_CURSOR = 'SET_CURSOR';
-const CLEAR_CURSOR = 'CLEAR_CURSOR';
+const SET_CURSOR = "SET_CURSOR";
+const CLEAR_CURSOR = "CLEAR_CURSOR";
 
 export function setHighlight(items, how) {
     return { type: SET_HIGHLIGH, payload: { items, how } };
@@ -61,16 +61,16 @@ export function clearCusor() {
 }
 
 export const initialApplication = {
-    tool: 'select',
-    drawMode: 'cut',
+    drawMode: "cut",
+    tool: "select",
 };
 
 export const applicationReducer = (state, action) => {
     switch (action.type) {
         case SET_HIGHLIGH:
-            return { ...state, highlight: state.highlight.set(action.payload.how, Set(action.payload.items)) }
+            return { ...state, highlight: state.highlight.set(action.payload.how, Set(action.payload.items)) };
         case CLEAR_HIGHLIGHT:
-            return { ...state, highlight: state.highlight.set(action.payload, Set()) }
+            return { ...state, highlight: state.highlight.set(action.payload, Set()) };
 
         case CLEAR_SELECTION:
             return { ...state, selected: Set() };
@@ -78,20 +78,20 @@ export const applicationReducer = (state, action) => {
             return { ...state, selected: state.highlight.reduce((select, items) => select.union(items), Set()) };
         case TOGGLE_SELECTION:
             const allHighlighted = state.highlight.reduce((all, items) => all.union(items), Set());
-            const selected = allHighlighted.reduce((selected, highlighted) =>
-                selected.has(highlighted)
-                    ? selected.remove(highlighted)
-                    : selected.add(highlighted), state.selected)
+            const selected = allHighlighted.reduce((selectedPart, highlighted) =>
+                selectedPart.has(highlighted)
+                    ? selectedPart.remove(highlighted)
+                    : selectedPart.add(highlighted), state.selected);
             return { ...state, selected };
 
         case SET_CURSOR:
             const cursor = { svg: action.payload.svg, html: action.payload.html };
             const area = state.cursorDown
                 ? {
+                    height: Math.abs(state.cursorDown.y - cursor.svg.y),
+                    width: Math.abs(state.cursorDown.x - cursor.svg.x),
                     x: Math.min(state.cursorDown.x, cursor.svg.x),
                     y: Math.min(state.cursorDown.y, cursor.svg.y),
-                    width: Math.abs(state.cursorDown.x - cursor.svg.x),
-                    height: Math.abs(state.cursorDown.y - cursor.svg.y),
                 } : undefined;
             return { ...state, cursor, area };
         case CLEAR_CURSOR:
@@ -100,12 +100,12 @@ export const applicationReducer = (state, action) => {
             return {
                 ...state,
                 area: {
+                    height: 0,
+                    width: 0,
                     x: state.cursor.svg.x,
                     y: state.cursor.svg.y,
-                    height: 0,
-                    width: 0
                 },
-                cursorDown: state.cursor.svg
+                cursorDown: state.cursor.svg,
             };
         case FINISH_AREA_SELECTION:
             return { ...state, cursorDown: undefined, area: undefined };

@@ -1,9 +1,9 @@
-import { identity } from 'transformation-matrix';
-import { undoableInit, undoableReducer } from './undoable';
-import { Map, List } from 'immutable';
+import { List, Map } from "immutable";
+import { identity } from "transformation-matrix";
+import { undoableInit, undoableReducer } from "./undoable";
 
-const ROTATE_MATERIAL = 'ROTATE_MATERIAL';
-const SET_PIXEL = 'SET_PIXEL';
+const ROTATE_MATERIAL = "ROTATE_MATERIAL";
+const SET_PIXEL = "SET_PIXEL";
 
 export function rotateMaterial() {
     return { type: ROTATE_MATERIAL };
@@ -24,20 +24,20 @@ const x1 = Symbol();
 const y1 = Symbol();
 const x2 = Symbol();
 const y2 = Symbol();
-const pointA = { type: 'point', x: x1, y: y1 };
-const pointB = { type: 'point', x: x2, y: y2 };
+const pointA = { type: "point", x: x1, y: y1 };
+const pointB = { type: "point", x: x2, y: y2 };
 
 export const emptyDrawing = undoableInit({
-    px: 1,
-    transform: identity(),
+    constraints: [],
     material: { width: 18 * units.inch, height: 12 * units.inch },
+    px: 1,
     shapes: List([
-        { type: 'line', mode: 'cut', a: pointA, b: pointB },
+        { type: "line", mode: "cut", a: pointA, b: pointB },
         pointA,
         pointB,
     ]),
-    solution: Map([]),//[x2, 52], [y2, 140], [x1, 80], [y1, 80]
-    constraints: [],
+    solution: Map([]), // [x2, 52], [y2, 140], [x1, 80], [y1, 80]
+    transform: identity(),
 });
 
 export const drawingReducer = undoableReducer(emptyDrawing, (state, action) => {
@@ -46,8 +46,8 @@ export const drawingReducer = undoableReducer(emptyDrawing, (state, action) => {
             return {
                 ...state,
                 material: {
-                    width: state.material.height,
                     height: state.material.width,
+                    width: state.material.height,
                 },
             };
         case SET_PIXEL:

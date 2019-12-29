@@ -1,14 +1,14 @@
 import Boarder from "./Boarder";
 import ConstraintTools from "./ConstraintTools";
 import DocumentTools from "./DocumentTools";
+import Aligns from "./draw/Aligns";
 import Cursor from "./draw/Cursor";
 import Doodle from "./draw/Doodle";
 import Halos from "./draw/Halos";
 import Shapes from "./draw/Shapes";
+import Tool from "./draw/tools";
 import DrawingTools from "./DrawingTools";
 import InfoPanel from "./InfoPanel";
-import Aligns from "./draw/Aligns";
-import Tool from "./draw/tools";
 
 const Frame = () => (<>
     <div className="parent">

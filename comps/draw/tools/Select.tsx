@@ -1,57 +1,57 @@
-import { useMachine } from '@xstate/react';
-import { Machine } from 'xstate';
-import { Set } from 'immutable';
+import { useMachine } from "@xstate/react";
+import { Set } from "immutable";
+import { Machine } from "xstate";
 
 const selectMachine = Machine({
-    id: 'select',
-    initial: 'outsideUp',
     context: {
-        selected: Set(),
         highlighted: Set(),
+        selected: Set(),
     },
+    id: "select",
+    initial: "outsideUp",
     states: {
-        outsideUp: {
+        insideDown: {
             on: {
-                DOWN: 'outsideDown',
-                ENTER: 'insideUp',
-            }
-        },
-        outsideDown: {
-            on: {
-                UP: 'outsideUp',
-                MOVE: 'outsideDownArea',
-            }
-        },
-        outsideDownArea: {
-            on: {
-                UP: 'outsideUp',
-                ENTER: 'insideDownArea',
-            }
+                MOVE: "insideDownDrag",
+                UP: "insideUp",
+            },
         },
         insideDownArea: {
             on: {
-                LEAVE: 'outsideDownArea',
-                UP: 'insideUp',
-            }
-        },
-        insideUp: {
-            on: {
-                LEAVE: 'outsideUp',
-                DOWN: 'insideDown',
-            }
-        },
-        insideDown: {
-            on: {
-                UP: 'insideUp',
-                MOVE: 'insideDownDrag',
-            }
+                LEAVE: "outsideDownArea",
+                UP: "insideUp",
+            },
         },
         insideDownDrag: {
             on: {
-                UP: 'insideUp',
-            }
+                UP: "insideUp",
+            },
         },
-    }
+        insideUp: {
+            on: {
+                DOWN: "insideDown",
+                LEAVE: "outsideUp",
+            },
+        },
+        outsideDown: {
+            on: {
+                MOVE: "outsideDownArea",
+                UP: "outsideUp",
+            },
+        },
+        outsideDownArea: {
+            on: {
+                ENTER: "insideDownArea",
+                UP: "outsideUp",
+            },
+        },
+        outsideUp: {
+            on: {
+                DOWN: "outsideDown",
+                ENTER: "insideUp",
+            },
+        },
+    },
 });
 
 const Select = () => {

@@ -1,29 +1,31 @@
-import Head from 'next/head';
-import React from 'react';
+import Head from "next/head";
+import React from "react";
 import Frame from "../comps/Frame";
+import { applicationReducer, initialApplication } from "../ducks/app";
 import { drawingReducer, emptyDrawing } from "../ducks/drawing";
-import { initialApplication, applicationReducer } from "../ducks/app";
 
 const defaultValue = {
-    state: {
-        drawing: emptyDrawing as any,
-        app: initialApplication as any
+    dispatch: (action: any) => {
+        // do nothing
     },
-    dispatch: (action: any) => { }
+    state: {
+        app: initialApplication as any,
+        drawing: emptyDrawing as any,
+    },
 };
 export const AppContext = React.createContext(defaultValue);
 
 export default () => {
-    const [drawing, drawingDispatch] = React.useReducer(drawingReducer, emptyDrawing)
+    const [drawing, drawingDispatch] = React.useReducer(drawingReducer, emptyDrawing);
     const [app, appDispatch] = React.useReducer(applicationReducer, initialApplication);
 
     const appContextValue = React.useMemo(() => {
         return {
-            state: { drawing, app },
             dispatch: (action) => {
                 drawingDispatch(action);
                 appDispatch(action);
-            }
+            },
+            state: { drawing, app },
         };
     }, [drawing, drawingDispatch, app, appDispatch]);
 

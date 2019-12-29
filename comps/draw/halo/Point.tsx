@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const Point = ({ shape, px, solution, onClick, onMouseEnter, onMouseLeave }) => {
     return <circle

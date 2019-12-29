@@ -1,15 +1,16 @@
-import Point from "./Point";
 import Line from "./Line";
+import Point from "./Point";
 
 const typeComponents = {
-    point: Point,
     line: Line,
-}
+    point: Point,
+};
 
 const Halo = ({ shape, px, material, solution, selected, onClick, onMouseEnter, onMouseLeave }) => {
     const HaloComp = typeComponents[shape.type];
-    if (HaloComp === undefined)
+    if (HaloComp === undefined) {
         return null;
+    }
     return <HaloComp
         shape={shape}
         px={px}

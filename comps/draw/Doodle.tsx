@@ -15,18 +15,26 @@ const inside = (point, area) => {
     return true;
 }
 
-const Doodle = ({ children }) => (<>
+const Doodle = ({ }) => (<>
     <AutoSizer>{({ width, height }) => {
         return <AppContext.Consumer>{({ state, dispatch }) => {
             const handleMouseEnter = (evt) => {
                 const svg = evt.target;
                 const CTM = svg.getScreenCTM();
-                dispatch(setCusor((evt.clientX - CTM.e) / CTM.a, (evt.clientY - CTM.f) / CTM.d), evt.clientX, evt.clientY);
+                dispatch(setCusor(
+                    (evt.clientX - CTM.e) / CTM.a,
+                    (evt.clientY - CTM.f) / CTM.d,
+                    evt.clientX,
+                    evt.clientY));
             };
             const handleMouseMove = (evt) => {
                 const svg = evt.target;
                 const CTM = svg.getScreenCTM();
-                dispatch(setCusor((evt.clientX - CTM.e) / CTM.a, (evt.clientY - CTM.f) / CTM.d), evt.clientX, evt.clientY);
+                dispatch(setCusor(
+                    (evt.clientX - CTM.e) / CTM.a,
+                    (evt.clientY - CTM.f) / CTM.d,
+                    evt.clientX,
+                    evt.clientY));
             };
             const handleMouseLeave = (evt) => {
                 dispatch(clearCusor());
@@ -71,7 +79,6 @@ const Doodle = ({ children }) => (<>
                 onClick={handleClick}
                 onContextMenu={handleContextClick}
             >
-                {children}
             </svg>
         }}
         </AppContext.Consumer>

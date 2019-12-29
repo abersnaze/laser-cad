@@ -12,7 +12,7 @@ const Shapes = () => (
                     px={drawing.px}
                     solution={drawing.solution}
                     selected={state.app.selected}
-                    isHighlighted={state.app.highlight.some(vs => vs.has(shape))}
+                    isHighlighted={false}
                 />;
             })}
         </g>

@@ -61,15 +61,8 @@ export function clearCusor() {
 }
 
 export const initialApplication = {
-    area: undefined,
-    areaStart: undefined,
-    cursor: undefined,
-
-    highlight: Map(),
-    selected: Set(),
-
     tool: 'select',
-    mode: 'cut',
+    drawMode: 'cut',
 };
 
 export const applicationReducer = (state, action) => {
@@ -93,16 +86,16 @@ export const applicationReducer = (state, action) => {
 
         case SET_CURSOR:
             const cursor = { svg: action.payload.svg, html: action.payload.html };
-            const area = state.areaStart
+            const area = state.cursorDown
                 ? {
-                    x: Math.min(state.areaStart.x, cursor.svg.x),
-                    y: Math.min(state.areaStart.y, cursor.svg.y),
-                    width: Math.abs(state.areaStart.x - cursor.svg.x),
-                    height: Math.abs(state.areaStart.y - cursor.svg.y),
+                    x: Math.min(state.cursorDown.x, cursor.svg.x),
+                    y: Math.min(state.cursorDown.y, cursor.svg.y),
+                    width: Math.abs(state.cursorDown.x - cursor.svg.x),
+                    height: Math.abs(state.cursorDown.y - cursor.svg.y),
                 } : undefined;
             return { ...state, cursor, area };
         case CLEAR_CURSOR:
-            return { ...state, cursor: undefined, areaStart: undefined, area: undefined };
+            return { ...state, cursor: undefined, cursorDown: undefined, area: undefined };
         case START_AREA_SELECTION:
             return {
                 ...state,
@@ -112,10 +105,10 @@ export const applicationReducer = (state, action) => {
                     height: 0,
                     width: 0
                 },
-                areaStart: state.cursor.svg
+                cursorDown: state.cursor.svg
             };
         case FINISH_AREA_SELECTION:
-            return { ...state, areaStart: undefined, area: undefined };
+            return { ...state, cursorDown: undefined, area: undefined };
 
         case SELECT_TOOL:
             return { ...state, tool: action.payload };

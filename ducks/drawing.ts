@@ -1,6 +1,6 @@
 import { identity } from 'transformation-matrix';
 import { undoableInit, undoableReducer } from './undoable';
-import { Map } from 'immutable';
+import { Map, List } from 'immutable';
 
 const ROTATE_MATERIAL = 'ROTATE_MATERIAL';
 const SET_PIXEL = 'SET_PIXEL';
@@ -31,16 +31,16 @@ export const emptyDrawing = undoableInit({
     px: 1,
     transform: identity(),
     material: { width: 18 * units.inch, height: 12 * units.inch },
-    shapes: [
+    shapes: List([
         { type: 'line', mode: 'cut', a: pointA, b: pointB },
         pointA,
         pointB,
-    ],
-    solution: Map([[x2, 52], [y2, 140], [x1, 80], [y1, 80]]),
+    ]),
+    solution: Map([]),//[x2, 52], [y2, 140], [x1, 80], [y1, 80]
     constraints: [],
 });
 
-export const drawingReducer = undoableReducer((state, action) => {
+export const drawingReducer = undoableReducer(emptyDrawing, (state, action) => {
     switch (action.type) {
         case ROTATE_MATERIAL:
             return {

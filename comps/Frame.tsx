@@ -8,21 +8,14 @@ import Shapes from "./draw/Shapes";
 import DrawingTools from "./DrawingTools";
 import InfoPanel from "./InfoPanel";
 import Aligns from "./draw/Aligns";
+import Tool from "./draw/tools";
 
 const Frame = () => (<>
     <div className="parent">
         <div className="top"><DocumentTools /><DrawingTools /></div>
         <div className="left"><ConstraintTools /></div>
         <div className="right"><InfoPanel /></div>
-        <div className="content">
-            <Doodle >
-                <Boarder />
-                <Shapes />
-                <Cursor />
-                <Aligns />
-                <Halos />
-            </Doodle>
-        </div>
+        <div className="content"> <Doodle /></div>
     </div>
     <style jsx>{`
         .parent {

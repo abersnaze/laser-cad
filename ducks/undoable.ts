@@ -7,7 +7,7 @@ export function undoableInit(initState) {
     };
 }
 
-export function undoableReducer(reducer) {
+export function undoableReducer(initialState, reducer) {
     // Return a reducer that handles undo and redo
     return function (state = initialState, action) {
         const { past, present, future } = state

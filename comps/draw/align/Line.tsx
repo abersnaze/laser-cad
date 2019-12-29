@@ -37,9 +37,9 @@ const PointSlope = ({ intercept, slope, material, strokeWidth, onMouseEnter, onM
 }
 
 const Line = ({ shape, px, material, solution, selected, onMouseEnter, onMouseLeave }) => {
-    if (selected.has(shape.a) && selected.has(shape.b)) {
-        return null;
-    }
+    // if (selected.has(shape.a) && selected.has(shape.b)) {
+    //     return null;
+    // }
     const ay = solution.get(shape.a.y);
     const by = solution.get(shape.b.y);
     const ax = solution.get(shape.a.x);

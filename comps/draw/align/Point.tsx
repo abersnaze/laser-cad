@@ -1,8 +1,8 @@
 import React from 'react';
 
 const Point = ({ shape, px, material, solution, selected, onClick, onMouseEnter, onMouseLeave }) => {
-    if (selected.has(shape))
-        return null
+    // if (selected.has(shape))
+    //     return null
     return <>
         <line
             x1={solution.get(shape.x)} y1={0}

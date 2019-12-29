@@ -1,18 +1,14 @@
-import Halo from "./halo";
+import Align from "./align";
 import { AppContext } from "../../pages";
 import { setHighlight, clearHighlight, toggleSelection, setSelection } from "../../ducks/app";
 
-const Halos = () => (
+const Aligns = () => (
     <AppContext.Consumer>{({ state, dispatch }) => {
         const drawing = state.drawing.present;
 
-        return <g
-            fill="#ff0000"
-            stroke="#ff0000"
-            opacity=".2"
-        >
+        return <g>
             {drawing.shapes.map((shape, idx) => {
-                return <Halo
+                return <Align
                     key={idx}
                     shape={shape}
                     material={drawing.material}
@@ -30,8 +26,8 @@ const Halos = () => (
                     onClick={(evt) => {
                         evt.stopPropagation();
                         dispatch((evt.shiftKey)
-                            ? toggleSelection(shape)
-                            : setSelection(shape));
+                            ? toggleSelection()
+                            : setSelection());
                     }} />;
             })}
         </g>
@@ -39,4 +35,4 @@ const Halos = () => (
     </AppContext.Consumer>
 );
 
-export default Halos;
+export default Aligns;

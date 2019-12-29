@@ -1,9 +1,17 @@
 import Head from 'next/head';
+import React from 'react';
 import Frame from "../comps/Frame";
 import { drawingReducer, emptyDrawing } from "../ducks/drawing";
 import { initialApplication, applicationReducer } from "../ducks/app";
 
-export const AppContext = React.createContext();
+const defaultValue = {
+    state: {
+        drawing: emptyDrawing as any,
+        app: initialApplication as any
+    },
+    dispatch: (action: any) => { }
+};
+export const AppContext = React.createContext(defaultValue);
 
 export default () => {
     const [drawing, drawingDispatch] = React.useReducer(drawingReducer, emptyDrawing)

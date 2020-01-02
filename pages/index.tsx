@@ -9,8 +9,8 @@ const defaultValue = {
         // do nothing
     },
     state: {
-        app: initialApplication as any,
-        drawing: emptyDrawing as any,
+        app: initialApplication,
+        drawing: emptyDrawing,
     },
 };
 export const AppContext = React.createContext(defaultValue);

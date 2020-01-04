@@ -11,7 +11,7 @@ const Cursor = ({ }) => (
             strokeWidth={state.drawing.present.px}
         >
             {/* cursor and area selection */}
-            {state.app.cursor === undefined ? undefined :
+            {/* {state.app.cursor === undefined ? undefined :
                 <Reticle
                     cursor={state.app.cursor.svg}
                     material={state.drawing.present.material}
@@ -19,7 +19,7 @@ const Cursor = ({ }) => (
             {state.app.area === undefined ? undefined :
                 <SelectionArea
                     area={state.app.area}
-                />}
+                />} */}
         </g>)
     }</AppContext.Consumer>
 );

@@ -1,38 +1,53 @@
-import { Button } from "semantic-ui-react";
+import { Button, Popup } from "semantic-ui-react";
+import Distance from "./icons/Distance";
+import Horizontal from "./icons/Horizontal";
+import Parallel from "./icons/Parallel";
+import Tangent from "./icons/Tangent";
+import Vertical from "./icons/Vertical";
+
+const tooltipDelay = 1000;
 
 const ConstraintTools = () => (<>
-    <Button icon={{ className: "CAD-Icons TangentCons" }} />
-    <Button icon={{ className: "CAD-Icons ParallelCons" }} />
-    <Button icon={{ className: "CAD-Icons HorizontalCons" }} />
-    <Button icon={{ className: "CAD-Icons VerticalCons" }} />
-    <Button icon={{ className: "CAD-Icons DistanceCons" }} />
-    <Button icon={{ className: "CAD-Icons RadiusCons" }} />
-    <style jsx global>{`
-@font-face {
-    font-family: CAD-Icons;
-    src: url('/CAD-icons-Regular.woff2');
-}
-i.icon.CAD-Icons {
-    font-family: CAD-Icons
-}
-i.icon.TangentCons:before {
-    content: '\e101';
-}
-i.icon.ParallelCons:before {
-    content: '\e102';
-}
-i.icon.HorizontalCons:before {
-    content: '\e103';
-}
-i.icon.VerticalCons:before {
-    content: '\e104';
-}
-i.icon.DistanceCons:before {
-    content: '\e105';
-}
-i.icon.RadiusCons:before {
-    content: '\e106';
-}
-    `}</style>
+    <Popup
+        content="Set that line is tangent to a curve"
+        position="left center"
+        mouseEnterDelay={tooltipDelay}
+        on={["hover"]}
+        trigger={
+            <Button className="icon"> <Tangent /> </Button>
+        } />
+    <Popup
+        content="Set that two features are parallel aligned"
+        position="left center"
+        mouseEnterDelay={tooltipDelay}
+        on={["hover"]}
+        trigger={
+            <Button className="icon"> <Parallel /> </Button>
+        } />
+    <Popup
+        content="Set that two features are horizontally aligned"
+        position="left center"
+        mouseEnterDelay={tooltipDelay}
+        on={["hover"]}
+        trigger={
+            <Button className="icon"> <Horizontal /> </Button>
+        } />
+    <Popup
+        content="Set that two features are vertically aligned"
+        position="left center"
+        mouseEnterDelay={tooltipDelay}
+        on={["hover"]}
+        trigger={
+            <Button className="icon"> <Vertical /> </Button>
+        } />
+    <Popup
+        content="Set the distance between two features"
+        position="left center"
+        mouseEnterDelay={tooltipDelay}
+        on={["hover"]}
+        trigger={
+            <Button className="icon"> <Distance /> </Button>
+        } />
 </>);
+
 export default ConstraintTools;

@@ -12,7 +12,14 @@ import InfoPanel from "./InfoPanel";
 
 const Frame = () => (<>
     <div className="parent">
-        <div className="top"><DocumentTools /><DrawingTools /></div>
+        <div className="top">
+            <div className="topLeft">
+                <DocumentTools />
+            </div>
+            <div className="topRight">
+                <DrawingTools />
+            </div>
+        </div>
         <div className="left"><ConstraintTools /></div>
         <div className="right"><InfoPanel /></div>
         <div className="content"> <Doodle /></div>
@@ -32,6 +39,11 @@ const Frame = () => (<>
         .right { grid-area: 2 / 1 / 3 / 2; }
         .left { grid-area: 2 / 3 / 3 / 4; }
         .content { grid-area: 2 / 2 / 3 / 3; }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+        }
     `} </style>
 </>);
 

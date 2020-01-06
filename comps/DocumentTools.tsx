@@ -1,9 +1,11 @@
 import { Button, Dropdown } from "semantic-ui-react";
+import { setMode } from "../ducks/drawing";
+import { AppContext } from "../pages";
 
 const DocumentTools = () => {
     const options = [];
     const currentValue = undefined;
-    return (<>
+    return (<AppContext.Consumer>{({ state, dispatch }) => <>
         <Button icon="info" active />
         <Dropdown
             search selection allowAdditions
@@ -17,11 +19,23 @@ const DocumentTools = () => {
         <Button icon="undo" />
         <Button icon="redo" />
         <Button.Group>
-            <Button active>Free</Button>
-            <Button>Array</Button>
-            <Button>Radial</Button>
+            <Button
+                active={state.drawing.present.mode === "free"}
+                onClick={() => dispatch(setMode("free"))}
+            >Free</Button>
+            <Button.Or />
+            <Button
+                active={state.drawing.present.mode === "array"}
+                onClick={() => dispatch(setMode("array"))}
+            >Array</Button>
+            <Button.Or />
+            <Button
+                active={state.drawing.present.mode === "radial"}
+                onClick={() => dispatch(setMode("radial"))}
+            >Radial</Button>
         </Button.Group>
-    </>);
+    </>}
+    </AppContext.Consumer>);
 };
 
 export default DocumentTools;

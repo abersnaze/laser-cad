@@ -4,6 +4,7 @@ import { undoableInit, undoableReducer } from "./undoable";
 
 const ROTATE_MATERIAL = "ROTATE_MATERIAL";
 const SET_PIXEL = "SET_PIXEL";
+const SET_MODE = "SET_MODE";
 
 export function rotateMaterial() {
     return { type: ROTATE_MATERIAL };
@@ -11,6 +12,10 @@ export function rotateMaterial() {
 
 export function setPixel(px) {
     return { type: SET_PIXEL, payload: px };
+}
+
+export function setMode(mode: "free" | "array" | "radial") {
+    return { type: SET_MODE, payload: mode };
 }
 
 // 10160 = 2*127*5*2*2*2
@@ -30,6 +35,7 @@ const pointB = { type: "point", x: x2, y: y2 };
 export const emptyDrawing = undoableInit({
     constraints: [],
     material: { width: 18 * units.inch, height: 12 * units.inch },
+    mode: "free",
     px: 1,
     shapes: List([
         { type: "line", mode: "cut", a: pointA, b: pointB },
@@ -52,6 +58,8 @@ export const drawingReducer = undoableReducer(emptyDrawing, (state, action) => {
             };
         case SET_PIXEL:
             return { ...state, px: action.payload };
+        case SET_MODE:
+            return { ...state, mode: action.payload };
         default:
             return state;
     }

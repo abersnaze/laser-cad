@@ -23,12 +23,10 @@ const DocumentTools = () => {
                 active={state.drawing.present.mode === "free"}
                 onClick={() => dispatch(setMode("free"))}
             >Free</Button>
-            <Button.Or />
             <Button
                 active={state.drawing.present.mode === "array"}
                 onClick={() => dispatch(setMode("array"))}
             >Array</Button>
-            <Button.Or />
             <Button
                 active={state.drawing.present.mode === "radial"}
                 onClick={() => dispatch(setMode("radial"))}

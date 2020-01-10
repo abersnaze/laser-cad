@@ -4,16 +4,12 @@ const typeComponents = {
     select: Select,
 };
 
-const Tool = ({ tool, px, solution }) => {
+const Tool = ({ tool }) => {
     const ToolComp = typeComponents[tool.type];
     if (ToolComp === undefined) {
         return null;
     }
-    return <ToolComp
-        {...tool}
-        px={px}
-        solution={solution}
-    />;
+    return <ToolComp />;
 };
 
 export default Tool;

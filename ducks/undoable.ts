@@ -35,6 +35,13 @@ export function undoableReducer(initialState, reducer) {
                 if (present === newPresent) {
                     return state;
                 }
+                if (action.type === "APPLY_TRANSFORM") {
+                    return {
+                        future: state.future,
+                        past: state.past,
+                        present: newPresent,
+                    };
+                }
                 return {
                     future: [],
                     past: [...past, present],

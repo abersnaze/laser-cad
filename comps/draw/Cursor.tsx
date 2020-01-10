@@ -1,26 +1,37 @@
 import { AppContext } from "../../pages";
-import Reticle from "./Reticle";
-import SelectionArea from "./SelectionArea";
 
 const Cursor = ({ }) => (
-    <AppContext.Consumer>{({ state }) => (
-        <g
-            fill="none"
-            stroke="#000000"
-            strokeOpacity="0.2"
-            strokeWidth={state.drawing.present.px}
-        >
-            {/* cursor and area selection */}
-            {/* {state.app.cursor === undefined ? undefined :
-                <Reticle
-                    cursor={state.app.cursor.svg}
-                    material={state.drawing.present.material}
-                />}
-            {state.app.area === undefined ? undefined :
-                <SelectionArea
-                    area={state.app.area}
-                />} */}
-        </g>)
+    <AppContext.Consumer>{({ state }) => {
+        if (state.app.cursor === undefined) {
+            return null;
+        }
+        const cursor = state.app.cursor;
+        const material = state.drawing.present.material;
+
+        if (cursor.x < 0 ||
+            cursor.x > material.width ||
+            cursor.y < 0 ||
+            cursor.y > material.height) {
+            return null;
+        }
+
+        return (
+            <g
+                fill="none"
+                stroke="black"
+                strokeOpacity="0.2"
+            >
+                <circle cx={cursor.x} cy={cursor.y} r={10 * state.drawing.present.px} />
+                <line
+                    x1={cursor.x} y1={0}
+                    x2={cursor.x} y2={material.height}
+                />
+                <line
+                    x1={0} y1={cursor.y}
+                    x2={material.width} y2={cursor.y}
+                />
+            </g>);
+    }
     }</AppContext.Consumer>
 );
 

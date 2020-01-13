@@ -12,6 +12,7 @@ import InfoPanel from "./InfoPanel";
 
 const Frame = () => (<>
     <div className="parent">
+        <div className="content"><Doodle /></div>
         <div className="top">
             <div className="topLeft">
                 <DocumentTools />
@@ -22,7 +23,6 @@ const Frame = () => (<>
         </div>
         <div className="left"><ConstraintTools /></div>
         <div className="right"><InfoPanel /></div>
-        <div className="content"> <Doodle /></div>
     </div>
     <style jsx>{`
         .parent {

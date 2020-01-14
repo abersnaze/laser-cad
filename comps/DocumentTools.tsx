@@ -1,4 +1,5 @@
 import { Button, Dropdown } from "semantic-ui-react";
+import { toggleInfo } from "../ducks/app";
 import { setMode } from "../ducks/drawing";
 import { AppContext } from "../pages";
 
@@ -6,7 +7,7 @@ const DocumentTools = () => {
     const options = [];
     const currentValue = undefined;
     return (<AppContext.Consumer>{({ state, dispatch }) => <>
-        <Button icon="info" active />
+        <Button icon="info" active={state.app.showInfo} onClick={() => dispatch(toggleInfo())} />
         <Dropdown
             search selection allowAdditions
             placeholder="Choose a component name."

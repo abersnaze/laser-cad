@@ -1,7 +1,6 @@
 import { useMachine } from "@xstate/react";
 import { Set } from "immutable";
 import { Machine } from "xstate";
-import { AppContext } from "../../../pages";
 
 const selectMachine = Machine({
     context: {
@@ -58,8 +57,7 @@ const selectMachine = Machine({
 const Select = () => {
     const [current, send] = useMachine(selectMachine);
 
-    return <AppContext.Consumer>{({ state, dispatch }) => <>
-    </>}</AppContext.Consumer>;
+    return <div />;
 };
 
 export default Select;

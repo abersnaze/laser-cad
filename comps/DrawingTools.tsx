@@ -1,6 +1,6 @@
+import { useDispatch, useSelector } from "react-redux";
 import { Button, Popup } from "semantic-ui-react";
 import { setMode, setTool } from "../ducks/app";
-import { AppContext } from "../pages";
 import Arc from "./icons/Arc";
 import Circle from "./icons/Circle";
 import Clone from "./icons/Clone";
@@ -11,8 +11,11 @@ import Reference from "./icons/Reference";
 import Select from "./icons/Select";
 
 const tooltipDelay = 1000;
-const DrawingTools = () => (<>
-    <AppContext.Consumer>{({ state, dispatch }) => <>
+const DrawingTools = () => {
+    const [tool, mode] = useSelector((state) => [state.app.tool, state.app.mode]);
+    const dispatch = useDispatch();
+
+    return <>
         <Button.Group>
             <Popup
                 content="Cut drawing mode"
@@ -20,7 +23,7 @@ const DrawingTools = () => (<>
                 mouseEnterDelay={tooltipDelay}
                 on={["hover"]}
                 trigger={<Button
-                    active={state.app.mode === "cut"}
+                    active={mode === "cut"}
                     onClick={() => dispatch(setMode("cut"))}
                     className="icon"><Cut /></Button>} />
             <Popup
@@ -29,7 +32,7 @@ const DrawingTools = () => (<>
                 mouseEnterDelay={tooltipDelay}
                 on={["hover"]}
                 trigger={<Button
-                    active={state.app.mode === "etch"}
+                    active={mode === "etch"}
                     onClick={() => dispatch(setMode("etch"))}
                     className="icon"><Etch /></Button>} />
             <Popup
@@ -38,7 +41,7 @@ const DrawingTools = () => (<>
                 mouseEnterDelay={tooltipDelay}
                 on={["hover"]}
                 trigger={<Button
-                    active={state.app.mode === "ref"}
+                    active={mode === "ref"}
                     onClick={() => dispatch(setMode("ref"))}
                     className="icon"><Reference /></Button>} />
         </Button.Group>
@@ -49,7 +52,7 @@ const DrawingTools = () => (<>
                 mouseEnterDelay={tooltipDelay}
                 on={["hover"]}
                 trigger={<Button
-                    active={state.app.tool.type === "select"}
+                    active={tool.type === "select"}
                     onClick={() => dispatch(setTool("select"))}
                     className="icon"><Select /></Button>} />
             <Popup
@@ -58,7 +61,7 @@ const DrawingTools = () => (<>
                 mouseEnterDelay={tooltipDelay}
                 on={["hover"]}
                 trigger={<Button
-                    active={state.app.tool.type === "anchor"}
+                    active={tool.type === "anchor"}
                     onClick={() => dispatch(setTool("anchor"))}
                     icon="anchor" />} />
             <Popup
@@ -67,7 +70,7 @@ const DrawingTools = () => (<>
                 mouseEnterDelay={tooltipDelay}
                 on={["hover"]}
                 trigger={<Button
-                    active={state.app.tool.type === "line"}
+                    active={tool.type === "line"}
                     onClick={() => dispatch(setTool("line"))}
                     className="icon"><Line /></Button>} />
             <Popup
@@ -76,7 +79,7 @@ const DrawingTools = () => (<>
                 mouseEnterDelay={tooltipDelay}
                 on={["hover"]}
                 trigger={<Button
-                    active={state.app.tool.type === "circle"}
+                    active={tool.type === "circle"}
                     onClick={() => dispatch(setTool("circle"))}
                     className="icon"><Circle /></Button>} />
             <Popup
@@ -85,7 +88,7 @@ const DrawingTools = () => (<>
                 mouseEnterDelay={tooltipDelay}
                 on={["hover"]}
                 trigger={<Button
-                    active={state.app.tool.type === "arc"}
+                    active={tool.type === "arc"}
                     onClick={() => dispatch(setTool("arc"))}
                     className="icon"><Arc /></Button>} />
             <Popup
@@ -94,10 +97,10 @@ const DrawingTools = () => (<>
                 mouseEnterDelay={tooltipDelay}
                 on={["hover"]}
                 trigger={<Button
-                    active={state.app.tool.type === "shape"}
+                    active={tool.type === "shape"}
                     onClick={() => dispatch(setTool("shape"))}
                     className="icon"><Clone /></Button>} />
         </Button.Group>
-    </>}</AppContext.Consumer>
-</>);
+    </>;
+};
 export default DrawingTools;

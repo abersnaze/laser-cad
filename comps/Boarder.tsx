@@ -1,7 +1,7 @@
-import { AppContext } from "../pages";
+import { useSelector } from "react-redux";
 
-const Boarder = () => <AppContext.Consumer>{({ state }) => {
-    const drawing = state.drawing.present;
+const Boarder = () => {
+    const [drawing] = useSelector((state) => [state.drawing.present]);
     return (<g>
         <rect
             x={drawing.px / 2}
@@ -12,6 +12,6 @@ const Boarder = () => <AppContext.Consumer>{({ state }) => {
             strokeWidth={drawing.px}
             fill="none" />
     </g>);
-}}</AppContext.Consumer>;
+};
 
 export default Boarder;

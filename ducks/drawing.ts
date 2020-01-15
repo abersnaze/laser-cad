@@ -1,6 +1,5 @@
 import { List, Map } from "immutable";
 import { compose, identity, Matrix } from "transformation-matrix";
-import { undoableInit, undoableReducer } from "./undoable";
 
 const ROTATE_MATERIAL = "ROTATE_MATERIAL";
 const SET_SCALE = "SET_SCALE";
@@ -11,8 +10,8 @@ export function rotateMaterial() {
     return { type: ROTATE_MATERIAL };
 }
 
-export function setScale(px: number) {
-    return { type: SET_SCALE, payload: px };
+export function setScale(scale: number) {
+    return { type: SET_SCALE, payload: scale };
 }
 
 export function applyTransform(...transforms: Matrix[]) {
@@ -41,7 +40,7 @@ const y2 = Symbol();
 const pointA = { type: "point", x: x1, y: y1 };
 const pointB = { type: "point", x: x2, y: y2 };
 
-export const emptyDrawing = undoableInit({
+export const emptyDrawing = {
     constraints: [],
     material: { width: 18 * units.inch, height: 12 * units.inch },
     mode: "free",
@@ -54,9 +53,9 @@ export const emptyDrawing = undoableInit({
     ]),
     solution: Map([]), // [x2, 52], [y2, 140], [x1, 80], [y1, 80]
     transform: identity(),
-});
+};
 
-export const drawingReducer = undoableReducer(emptyDrawing, (state, action) => {
+export const drawingReducer = (state = emptyDrawing, action) => {
     switch (action.type) {
         case ROTATE_MATERIAL:
             return {
@@ -68,9 +67,6 @@ export const drawingReducer = undoableReducer(emptyDrawing, (state, action) => {
             };
         case SET_SCALE:
             const scale = action.payload;
-            if (state.scale === scale) {
-                return state;
-            }
             return { ...state, scale, px: scale / state.transform.a };
         case APPLY_TRANSFORM:
             const transform = compose(state.transform, ...action.payload);
@@ -111,4 +107,4 @@ export const drawingReducer = undoableReducer(emptyDrawing, (state, action) => {
         default:
             return state;
     }
-});
+};

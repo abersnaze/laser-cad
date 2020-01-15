@@ -30,7 +30,7 @@ export const initialApplication = {
     toolMachine: Machine({}),
 };
 
-export const applicationReducer = (state, action) => {
+export const applicationReducer = (state = initialApplication, action) => {
     switch (action.type) {
         case SET_TOOL:
             return { ...state, tool: { type: action.payload } };

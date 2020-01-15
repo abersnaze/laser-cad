@@ -5,7 +5,11 @@ function modified(evt) {
     return evt.ctrlKey || evt.shiftKey || evt.altKey || evt.metaKey;
 }
 
-const Svg = ({ svgWidth, svgHeight, drwWidth, drwHeight, onMove, onDown, onUp, onZoom, onPan, onScale, children }) => {
+const Svg = ({
+    drwWidth, drwHeight, svgWidth, svgHeight, scale,
+    onMove, onDown, onUp, onZoom, onPan, onScale,
+    children,
+}) => {
     const handleMouseMove = (evt) => {
         if (evt.target.getScreenCTM !== undefined) {
             const CTM = evt.target.getScreenCTM();
@@ -49,7 +53,10 @@ const Svg = ({ svgWidth, svgHeight, drwWidth, drwHeight, onMove, onDown, onUp, o
         ref={(realSvg) => {
             if (realSvg) {
                 const px = 1 / realSvg.getScreenCTM().a;
-                onScale(px);
+                // prevent loops
+                if (scale !== px) {
+                    onScale(px);
+                }
             }
         }}
         onMouseMove={handleMouseMove}
@@ -62,7 +69,11 @@ const Svg = ({ svgWidth, svgHeight, drwWidth, drwHeight, onMove, onDown, onUp, o
     </svg>;
 };
 
-const ViewPort = ({ width: drwWidth, height: drwHeight, onMove, onDown, onUp, onZoom, onPan, onScale, children }) =>
+const ViewPort = ({
+    width: drwWidth, height: drwHeight, scale,
+    onMove, onDown, onUp, onZoom, onPan, onScale,
+    children,
+}) =>
     <AutoSizer>{({ width: svgWidth, height: svgHeight }) =>
         <Svg
             svgWidth={svgWidth}
@@ -74,6 +85,7 @@ const ViewPort = ({ width: drwWidth, height: drwHeight, onMove, onDown, onUp, on
             onUp={onUp}
             onZoom={onZoom}
             onPan={onPan}
+            scale={scale}
             onScale={onScale}
             children={children} />
     }</AutoSizer>;

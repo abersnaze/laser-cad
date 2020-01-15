@@ -1,13 +1,15 @@
+import { useDispatch, useSelector } from "react-redux";
 import { Button, Dropdown } from "semantic-ui-react";
 import { toggleInfo } from "../ducks/app";
 import { setMode } from "../ducks/drawing";
-import { AppContext } from "../pages";
 
 const DocumentTools = () => {
+    const [mode, showInfo] = useSelector((state) => [state.drawing.present.mode, state.app.showInfo]);
+    const dispatch = useDispatch();
     const options = [];
     const currentValue = undefined;
-    return (<AppContext.Consumer>{({ state, dispatch }) => <>
-        <Button icon="info" active={state.app.showInfo} onClick={() => dispatch(toggleInfo())} />
+    return <>
+        <Button icon="info" active={showInfo} onClick={() => dispatch(toggleInfo())} />
         <Dropdown
             search selection allowAdditions
             placeholder="Choose a component name."
@@ -21,20 +23,19 @@ const DocumentTools = () => {
         <Button icon="redo" />
         <Button.Group>
             <Button
-                active={state.drawing.present.mode === "free"}
+                active={mode === "free"}
                 onClick={() => dispatch(setMode("free"))}
             >Free</Button>
             <Button
-                active={state.drawing.present.mode === "array"}
+                active={mode === "array"}
                 onClick={() => dispatch(setMode("array"))}
             >Array</Button>
             <Button
-                active={state.drawing.present.mode === "radial"}
+                active={mode === "radial"}
                 onClick={() => dispatch(setMode("radial"))}
             >Radial</Button>
         </Button.Group>
-    </>}
-    </AppContext.Consumer>);
+    </>;
 };
 
 export default DocumentTools;

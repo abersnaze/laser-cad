@@ -1,5 +1,8 @@
 import { List, Map } from "immutable";
 import { compose, identity, Matrix } from "transformation-matrix";
+import { bed, epilogRepeatability } from "../lib/Equipment";
+import { IDrawing } from "../lib/IDrawing";
+import { Shape } from "../lib/Shape";
 
 const ROTATE_MATERIAL = "ROTATE_MATERIAL";
 const SET_SCALE = "SET_SCALE";
@@ -22,38 +25,31 @@ export function setMode(mode: "free" | "array" | "radial") {
     return { type: SET_MODE, payload: mode };
 }
 
-// 10160 = 2*127*5*2*2*2
-// divisable by 254 (inches), 10 (metric), 16 (EMF fixed point)
-export const units = {
-    inch: 25.4,
-    mm: 1,
-};
-
-// https://www.epiloglaser.com/how-it-works/laser-faqs.htm
-const epilogRepeatability = 0.0005 * units.inch;
-const epilogAccuracy = 0.01 * units.inch;
-
 const x1 = Symbol();
 const y1 = Symbol();
 const x2 = Symbol();
 const y2 = Symbol();
-const pointA = { type: "point", x: x1, y: y1 };
-const pointB = { type: "point", x: x2, y: y2 };
+
+const pointA: Shape = { kind: "point", x: x1, y: y1 };
+const pointB: Shape = { kind: "point", x: x2, y: y2 };
+const lineAB: Shape = { kind: "line", a: pointA, b: pointB };
+const circleAB: Shape = { kind: "circle", center: pointA, through: pointB };
 
 export const emptyDrawing = {
-    constraints: [],
-    material: { width: 18 * units.inch, height: 12 * units.inch },
-    mode: "free",
+    constraints: List(),
+    layout: "free",
+    material: bed,
     px: 1,
     scale: 1,
-    shapes: List([
-        { type: "line", mode: "cut", a: pointA, b: pointB },
+    shapes: List<Shape>([
+        lineAB,
         pointA,
         pointB,
+        circleAB,
     ]),
-    solution: Map([]), // [x2, 52], [y2, 140], [x1, 80], [y1, 80]
+    solution: Map<symbol, number>([[x2, 52], [y2, 140], [x1, 80], [y1, 80]] as Array<[symbol, number]>),
     transform: identity(),
-};
+} as IDrawing;
 
 export const drawingReducer = (state = emptyDrawing, action) => {
     switch (action.type) {

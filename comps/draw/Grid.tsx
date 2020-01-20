@@ -1,6 +1,6 @@
 import * as _ from "lodash";
 import { useSelector } from "react-redux";
-import { units } from "../../ducks/drawing";
+import { units } from "../../lib/Equipment";
 
 const Grid = ({ }) => {
     const [drawing] = useSelector((state) => [state.drawing.present]);

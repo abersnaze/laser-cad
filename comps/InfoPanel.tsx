@@ -15,9 +15,12 @@ const InfoPanel = () => {
         setExpanded(newExpanded);
     };
 
-    const [drawing, showInfo, cursor] = useSelector((state) => {
-        return [state.drawing.present, state.app.showInfo, state.app.cursor];
-    });
+    const [drawing, showInfo, cursor, transform] = useSelector((state) => [
+        state.drawing.present,
+        state.app.showInfo,
+        state.app.cursor,
+        state.app.transform,
+    ]);
 
     if (showInfo === false) {
         return null;
@@ -65,11 +68,11 @@ const InfoPanel = () => {
                     <dt>Pixel</dt>
                     <dd><Num x={drawing.px} /></dd>
                     <dt>Zoom</dt>
-                    <dd><Num x={drawing.transform.a} /></dd>
+                    <dd><Num x={transform.a} /></dd>
                     <dt>Pan</dt>
                     <dd>
-                        <Num x={-drawing.transform.e / drawing.transform.a} />
-                        <Num x={-drawing.transform.f / drawing.transform.a} />
+                        <Num x={-transform.e / transform.a} />
+                        <Num x={-transform.f / transform.a} />
                     </dd>
                     <dt>Material</dt>
                     <dd>

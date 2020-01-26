@@ -26,7 +26,6 @@ export const initialApplication = {
     mode: "cut",
     showInfo: false,
     tool: { type: "select" },
-    toolContext: {} as any,
     toolMachine: Machine({}),
 };
 

@@ -76,10 +76,10 @@ const ViewPort = ({
 }) =>
     <AutoSizer>{({ width: svgWidth, height: svgHeight }) =>
         <Svg
-            svgWidth={svgWidth}
             drwWidth={drwWidth}
-            svgHeight={svgHeight}
             drwHeight={drwHeight}
+            svgWidth={svgWidth}
+            svgHeight={svgHeight}
             onMove={onMove}
             onDown={onDown}
             onUp={onUp}

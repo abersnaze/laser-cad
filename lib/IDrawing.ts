@@ -1,15 +1,15 @@
-import { List, Map } from "immutable";
 import { Dimensions } from "react-virtualized";
 import { Matrix } from "transformation-matrix";
 import { IConstraint } from "./IConstraint";
 import { Shape } from "./Shape";
 
 export interface IDrawing {
-    constraints: List<IConstraint>;
+    constraints: IConstraint[];
     layout: string;
     material: Dimensions;
+    px: number;
     scale: number;
-    shapes: List<Shape>;
-    solution: Map<symbol, number>;
+    shapes: Shape[];
+    solution: { [key: string]: number };
     transform: Matrix;
 }

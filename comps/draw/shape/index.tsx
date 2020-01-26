@@ -6,7 +6,7 @@ const typeComponents = {
     point: Point,
 };
 
-const Shape = ({ shape, px, solution, selected, isHighlighted }) => {
+const Shape = ({ shape, px, solution, selected = false, isHighlighted = false }) => {
     const ShapeComp = typeComponents[shape.type];
     if (ShapeComp === undefined) {
         return null;

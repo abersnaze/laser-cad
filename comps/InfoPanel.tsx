@@ -15,11 +15,12 @@ const InfoPanel = () => {
         setExpanded(newExpanded);
     };
 
-    const [drawing, showInfo, cursor, transform] = useSelector((state) => [
+    const [drawing, showInfo, cursor, transform, select] = useSelector((state) => [
         state.drawing.present,
         state.app.showInfo,
         state.app.cursor,
-        state.app.transform,
+        state.drawing.present.transform,
+        state.select,
     ]);
 
     if (showInfo === false) {
@@ -79,6 +80,10 @@ const InfoPanel = () => {
                         <Num x={drawing.material.width} />
                         <Num x={drawing.material.height} />
                     </dd>
+                    <dt>Select State</dt>
+                    <dd>{select.value}</dd>
+                    <dd>{select.highlighted}</dd>
+                    <dd>{select.selected}</dd>
                 </dl>
             </Accordion.Content>
         </Accordion>

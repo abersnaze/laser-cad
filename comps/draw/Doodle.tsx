@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { compose, scale, toSVG, translate } from "transformation-matrix";
 import { setCursor } from "../../ducks/app";
 import { applyTransform, setScale } from "../../ducks/drawing";
+import { mouseDown, mouseMove, mouseUp } from "../../ducks/mouse";
 import Cursor from "./Cursor";
 import Grid from "./Grid";
 import Tool from "./tools";
@@ -14,39 +15,44 @@ const Doodle = ({ }) => {
     const height = drawing.material.height;
     const px = drawing.px;
 
-    return <ViewPort
-        scale={drawing.scale}
-        width={width}
-        height={height}
-        onMove={(loc) => {
-            dispatch(setCursor(loc));
-            // nothing
-        }} onDown={() => {
-            // nothing
-        }} onZoom={(factor) => {
-            if (cursor !== undefined) {
-                const scaleAtCursor = compose(
-                    // translate where the cursor is at to the origin 0,0
-                    translate(cursor.x, cursor.y),
-                    // scale the drawing
-                    scale(factor, factor),
-                    // move the drawing back.
-                    translate(-cursor.x, -cursor.y));
-                dispatch(applyTransform(scaleAtCursor));
-            }
-        }} onPan={(dx, dy) => {
-            dispatch(applyTransform(translate(-dx / drawing.transform.a, -dy / drawing.transform.a)));
-        }} onUp={() => {
-            // nothing
-        }} onScale={(pixel) => {
-            dispatch(setScale(pixel));
-        }}>
-        <g strokeWidth={px} transform={toSVG(drawing.transform)}>
-            <Grid />
-            <Tool tool={tool} />
-            <Cursor />
-        </g>
-    </ViewPort>;
+    // auto size
+    // - tool
+    // -- svg
+    return <>
+        <ViewPort
+            scale={drawing.scale}
+            width={width}
+            height={height}
+            onMove={(loc) => {
+                dispatch(setCursor(loc));
+                dispatch(mouseMove(loc));
+            }} onDown={(modified) => {
+                dispatch(mouseDown(modified));
+            }} onZoom={(factor) => {
+                if (cursor !== undefined) {
+                    const scaleAtCursor = compose(
+                        // translate where the cursor is at to the origin 0,0
+                        translate(cursor.x, cursor.y),
+                        // scale the drawing
+                        scale(factor, factor),
+                        // move the drawing back.
+                        translate(-cursor.x, -cursor.y));
+                    dispatch(applyTransform(scaleAtCursor));
+                }
+            }} onPan={(dx, dy) => {
+                dispatch(applyTransform(translate(-dx / drawing.transform.a, -dy / drawing.transform.a)));
+            }} onUp={() => {
+                dispatch(mouseUp());
+            }} onScale={(pixel) => {
+                dispatch(setScale(pixel));
+            }}>
+            <g strokeWidth={px} transform={toSVG(drawing.transform)}>
+                <Grid />
+                <Tool tool={tool} />
+                <Cursor />
+            </g>
+        </ViewPort>
+    </>;
 };
 
 // function draggable(element) {

@@ -1,63 +1,12 @@
-import { useMachine } from "@xstate/react";
-import { Set } from "immutable";
-import { Machine } from "xstate";
-
-const selectMachine = Machine({
-    context: {
-        highlighted: Set(),
-        selected: Set(),
-    },
-    id: "select",
-    initial: "outsideUp",
-    states: {
-        insideDown: {
-            on: {
-                MOVE: "insideDownDrag",
-                UP: "insideUp",
-            },
-        },
-        insideDownArea: {
-            on: {
-                LEAVE: "outsideDownArea",
-                UP: "insideUp",
-            },
-        },
-        insideDownDrag: {
-            on: {
-                UP: "insideUp",
-            },
-        },
-        insideUp: {
-            on: {
-                DOWN: "insideDown",
-                LEAVE: "outsideUp",
-            },
-        },
-        outsideDown: {
-            on: {
-                MOVE: "outsideDownArea",
-                UP: "outsideUp",
-            },
-        },
-        outsideDownArea: {
-            on: {
-                ENTER: "insideDownArea",
-                UP: "outsideUp",
-            },
-        },
-        outsideUp: {
-            on: {
-                DOWN: "outsideDown",
-                ENTER: "insideUp",
-            },
-        },
-    },
-});
+import { useSelector } from "react-redux";
+import Shape from "../shape";
 
 const Select = () => {
-    const [current, send] = useMachine(selectMachine);
+    const drawing = useSelector((state) => state.drawing.present);
 
-    return <div />;
+    return <>{
+        drawing.shapes.map((shape) => <Shape px={drawing.px} shape={shape} solution={drawing.solution}></Shape>)
+    }</>;
 };
 
 export default Select;

@@ -1,4 +1,3 @@
-import { List, Map } from "immutable";
 import { compose, identity, Matrix } from "transformation-matrix";
 import { bed, epilogRepeatability } from "../lib/Equipment";
 import { IDrawing } from "../lib/IDrawing";
@@ -30,24 +29,24 @@ const y1 = Symbol();
 const x2 = Symbol();
 const y2 = Symbol();
 
-const pointA: Shape = { kind: "point", x: x1, y: y1 };
+const pointA: Shape = { kind: "point", x: x1, y: y1, id: uuid() };
 const pointB: Shape = { kind: "point", x: x2, y: y2 };
 const lineAB: Shape = { kind: "line", a: pointA, b: pointB };
 const circleAB: Shape = { kind: "circle", center: pointA, through: pointB };
 
 export const emptyDrawing = {
-    constraints: List(),
+    constraints: [],
     layout: "free",
     material: bed,
     px: 1,
     scale: 1,
-    shapes: List<Shape>([
+    shapes: [
         lineAB,
         pointA,
         pointB,
         circleAB,
-    ]),
-    solution: Map<symbol, number>([[x2, 52], [y2, 140], [x1, 80], [y1, 80]] as Array<[symbol, number]>),
+    ],
+    solution: { [x2]: 52, [y2]: 140, [x1]: 80, [y1]: 80 },
     transform: identity(),
 } as IDrawing;
 

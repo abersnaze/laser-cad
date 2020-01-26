@@ -3,6 +3,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import undoable, { excludeAction, groupByActionTypes } from "redux-undo";
 import { applicationReducer } from "./app";
 import { applyTransform, drawingReducer, setScale } from "./drawing";
+import { selectReducer } from "./tools/select";
 
 const reducer = combineReducers({
     app: applicationReducer,
@@ -12,6 +13,7 @@ const reducer = combineReducers({
         // group together the pan/zoom movements.
         groupBy: groupByActionTypes([applyTransform().type]),
     }),
+    select: selectReducer,
 });
 
 const initialState = reducer(undefined, { type: undefined });

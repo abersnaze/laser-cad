@@ -1,10 +1,10 @@
 import React from "react";
 
 const Line = ({ shape, px, solution, onMouseEnter, onMouseLeave }) => {
-    const ay = solution.get(shape.a.y);
-    const by = solution.get(shape.b.y);
-    const ax = solution.get(shape.a.x);
-    const bx = solution.get(shape.b.x);
+    const ay = solution[shape.a.y];
+    const by = solution[shape.b.y];
+    const ax = solution[shape.a.x];
+    const bx = solution[shape.b.x];
     const strokeWidth = 20 * px;
 
     return (<line

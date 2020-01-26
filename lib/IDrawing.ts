@@ -1,9 +1,10 @@
 import { Dimensions } from "react-virtualized";
 import { Matrix } from "transformation-matrix";
 import { IConstraint } from "./IConstraint";
-import { Shape } from "./Shape";
+import { IAnchor, Shape } from "./Shape";
 
 export interface IDrawing {
+    anchors: IAnchor[];
     constraints: IConstraint[];
     layout: string;
     material: Dimensions;

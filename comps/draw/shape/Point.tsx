@@ -1,10 +1,10 @@
 import React from "react";
 
-const Point = ({ shape, px, solution, selected, isHighlighted }) => {
+const Point = ({ shape, px, solution }) => {
     return (<>
         <circle
-            cx={solution.get(shape.x)}
-            cy={solution.get(shape.y)}
+            cx={solution[shape.x]}
+            cy={solution[shape.y]}
             r={3 * px}
         />
     </>);

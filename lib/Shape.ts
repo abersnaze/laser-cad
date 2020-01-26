@@ -2,13 +2,13 @@ export type Shape = IPoint | IAnchor | ILine | ICircle;
 
 export interface IPoint {
     kind: "point";
-    x: symbol;
-    y: symbol;
+    x: string;
+    y: string;
 }
 
 export interface IAnchor {
     kind: "anchor";
-    loc: IPoint;
+    location: IPoint;
 }
 
 export interface ILine {

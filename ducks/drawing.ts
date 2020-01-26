@@ -1,12 +1,14 @@
+import expression from "2d-algebra";
 import { compose, identity, Matrix } from "transformation-matrix";
-import { bed, epilogRepeatability } from "../lib/Equipment";
+import * as uuid from "uuid/v4";
+import { bed, epilogRepeatability, units } from "../lib/Equipment";
 import { IDrawing } from "../lib/IDrawing";
 import { Shape } from "../lib/Shape";
 
 const ROTATE_MATERIAL = "ROTATE_MATERIAL";
 const SET_SCALE = "SET_SCALE";
 const APPLY_TRANSFORM = "APPLY_TRANSFORM";
-const SET_MODE = "SET_MODE";
+const SET_LAYOUT = "SET_MODE";
 
 export function rotateMaterial() {
     return { type: ROTATE_MATERIAL };
@@ -20,33 +22,56 @@ export function applyTransform(...transforms: Matrix[]) {
     return { type: APPLY_TRANSFORM, payload: transforms };
 }
 
-export function setMode(mode: "free" | "array" | "radial") {
-    return { type: SET_MODE, payload: mode };
+export function setLayout(mode: "free" | "array" | "radial") {
+    return { type: SET_LAYOUT, payload: mode };
 }
 
-const x1 = Symbol();
-const y1 = Symbol();
-const x2 = Symbol();
-const y2 = Symbol();
+const ax = uuid();
+const ay = uuid();
+const bx = uuid();
+const by = uuid();
+const cx = uuid();
+const cy = uuid();
 
-const pointA: Shape = { kind: "point", x: x1, y: y1, id: uuid() };
-const pointB: Shape = { kind: "point", x: x2, y: y2 };
-const lineAB: Shape = { kind: "line", a: pointA, b: pointB };
-const circleAB: Shape = { kind: "circle", center: pointA, through: pointB };
+const px = uuid();
+const py = uuid();
+const qx = uuid();
+const qy = uuid();
+
+const pointP: Shape = { kind: "point", x: px, y: py };
+const pointQ: Shape = { kind: "point", x: qx, y: qy };
+const linePQ: Shape = { kind: "line", a: pointP, b: pointQ };
+const circlePQ: Shape = { kind: "circle", center: pointP, through: pointQ };
+
+const a = { kind: "point", x: ax, y: ay };
+const b = { kind: "point", x: bx, y: by };
+const c = { kind: "point", x: cx, y: cy };
 
 export const emptyDrawing = {
-    constraints: [],
+    anchors: [
+        { kind: "anchor", location: a },
+        { kind: "anchor", location: b },
+        { kind: "anchor", location: c },
+    ],
+    constraints: [
+        { ex: expression(bed.width).dividedBy(2).eq(ax) },
+        { ex: expression(bed.height).dividedBy(2).eq(ay) },
+        { ex: expression(bed.width).dividedBy(2).plus(units.inch).eq(bx) },
+        { ex: expression(bed.height).dividedBy(2).eq(by) },
+        { ex: expression(bed.width).dividedBy(2).eq(cx) },
+        { ex: expression(bed.height).dividedBy(2).plus(units.inch).eq(cy) },
+    ],
     layout: "free",
     material: bed,
     px: 1,
     scale: 1,
     shapes: [
-        lineAB,
-        pointA,
-        pointB,
-        circleAB,
+        linePQ,
+        pointP,
+        pointQ,
+        circlePQ,
     ],
-    solution: { [x2]: 52, [y2]: 140, [x1]: 80, [y1]: 80 },
+    solution: { [qx]: 52, [qy]: 140, [px]: 80, [py]: 80 },
     transform: identity(),
 } as IDrawing;
 
@@ -97,8 +122,8 @@ export const drawingReducer = (state = emptyDrawing, action) => {
             }
 
             return { ...state, transform, px: state.scale / transform.a };
-        case SET_MODE:
-            return { ...state, mode: action.payload };
+        case SET_LAYOUT:
+            return { ...state, layout: action.payload };
         default:
             return state;
     }

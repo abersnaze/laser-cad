@@ -41,10 +41,10 @@ const Line = ({ shape, px, material, solution, selected, onMouseEnter, onMouseLe
     // if (selected.has(shape.a) && selected.has(shape.b)) {
     //     return null;
     // }
-    const ay = solution.get(shape.a.y);
-    const by = solution.get(shape.b.y);
-    const ax = solution.get(shape.a.x);
-    const bx = solution.get(shape.b.x);
+    const ay = solution[shape.a.y];
+    const by = solution[shape.b.y];
+    const ax = solution[shape.a.x];
+    const bx = solution[shape.b.x];
     const slope = (ay - by) / (ax - bx);
 
     const interceptAB = ay - (slope * ax);

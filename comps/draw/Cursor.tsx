@@ -1,7 +1,7 @@
-import { useSelector } from "react-redux";
+import { useTypedSelector } from "../../ducks";
 
 const Cursor = ({ }) => {
-    const [drawing, cursor] = useSelector((state) => [state.drawing.present, state.app.cursor]);
+    const [drawing, cursor] = useTypedSelector((state) => [state.drawing.present, state.app.cursor]);
 
     if (cursor === undefined) {
         return null;

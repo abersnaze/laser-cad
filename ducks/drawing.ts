@@ -38,10 +38,10 @@ const py = uuid();
 const qx = uuid();
 const qy = uuid();
 
-const pointP: Shape = { kind: "point", x: px, y: py };
-const pointQ: Shape = { kind: "point", x: qx, y: qy };
-const linePQ: Shape = { kind: "line", a: pointP, b: pointQ };
-const circlePQ: Shape = { kind: "circle", center: pointP, through: pointQ };
+const pointP: Shape = { id: uuid(), kind: "point", x: px, y: py };
+const pointQ: Shape = { id: uuid(), kind: "point", x: qx, y: qy };
+const linePQ: Shape = { id: uuid(), kind: "line", a: pointP, b: pointQ };
+const circlePQ: Shape = { id: uuid(), kind: "circle", center: pointP, through: pointQ };
 
 const a = { kind: "point", x: ax, y: ay };
 const b = { kind: "point", x: bx, y: by };

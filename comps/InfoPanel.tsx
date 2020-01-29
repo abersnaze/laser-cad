@@ -1,6 +1,6 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { Accordion } from "semantic-ui-react";
+import { useTypedSelector } from "../ducks";
 import Num from "./Num";
 
 const InfoPanel = () => {
@@ -15,7 +15,7 @@ const InfoPanel = () => {
         setExpanded(newExpanded);
     };
 
-    const [drawing, showInfo, cursor, transform, select] = useSelector((state) => [
+    const [drawing, showInfo, cursor, transform, select] = useTypedSelector((state) => [
         state.drawing.present,
         state.app.showInfo,
         state.app.cursor,
@@ -82,8 +82,6 @@ const InfoPanel = () => {
                     </dd>
                     <dt>Select State</dt>
                     <dd>{select.value}</dd>
-                    <dd>{select.highlighted}</dd>
-                    <dd>{select.selected}</dd>
                 </dl>
             </Accordion.Content>
         </Accordion>

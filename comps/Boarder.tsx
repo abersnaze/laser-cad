@@ -1,7 +1,7 @@
-import { useSelector } from "react-redux";
+import { useTypedSelector } from "../ducks";
 
 const Boarder = () => {
-    const [drawing] = useSelector((state) => [state.drawing.present]);
+    const [drawing] = useTypedSelector((state) => [state.drawing.present]);
     return (<g>
         <rect
             x={drawing.px / 2}

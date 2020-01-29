@@ -1,8 +1,8 @@
-import { useSelector } from "react-redux";
+import { useTypedSelector } from "../../ducks";
 import Align from "./align";
 
 const Aligns = () => {
-    const drawing = useSelector((state) => state.drawing.present);
+    const drawing = useTypedSelector((state) => state.drawing.present);
 
     return <g>
         {drawing.shapes.map((shape, idx) => {

@@ -1,6 +1,7 @@
 import { Dimensions } from "react-virtualized";
 import { Matrix } from "transformation-matrix";
 import { IConstraint } from "./IConstraint";
+import { ISolution } from "./ISolution";
 import { IAnchor, Shape } from "./Shape";
 
 export interface IDrawing {
@@ -11,6 +12,6 @@ export interface IDrawing {
     px: number;
     scale: number;
     shapes: Shape[];
-    solution: { [key: string]: number };
+    solution: ISolution;
     transform: Matrix;
 }

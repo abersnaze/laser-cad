@@ -1,9 +1,10 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Button, Dropdown } from "semantic-ui-react";
+import { useTypedSelector } from "../ducks";
 import { toggleInfo } from "../ducks/app";
 
 const DocumentTools = () => {
-    const [showInfo] = useSelector((state) => [state.drawing.present.layout, state.app.showInfo]);
+    const [showInfo] = useTypedSelector((state) => [state.drawing.present.layout, state.app.showInfo]);
     const dispatch = useDispatch();
     const options = [];
     const currentValue = undefined;

@@ -1,9 +1,10 @@
 import * as _ from "lodash";
-import { useSelector } from "react-redux";
+import { useMemo } from "react";
+import { useTypedSelector } from "../../ducks";
 import { units } from "../../lib/Equipment";
 
 const Grid = ({ }) => {
-    const [drawing] = useSelector((state) => [state.drawing.present]);
+    const [drawing] = useTypedSelector((state) => [state.drawing.present]);
     const width = drawing.material.width;
     const height = drawing.material.height;
     const px = drawing.px;

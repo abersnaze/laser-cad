@@ -7,7 +7,7 @@ const typeComponents = {
 };
 
 const Align = ({ shape, px, material, solution, selected, onClick, onMouseEnter, onMouseLeave }) => {
-    const AlignComp = typeComponents[shape.type];
+    const AlignComp = typeComponents[shape.kind];
     if (AlignComp === undefined) {
         return null;
     }

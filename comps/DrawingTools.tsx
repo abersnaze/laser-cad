@@ -1,5 +1,6 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Button, Popup } from "semantic-ui-react";
+import { useTypedSelector } from "../ducks";
 import { setDefaultEdgeStyle, setDefaultFillStyle, setTool } from "../ducks/app";
 import { setLayout } from "../ducks/drawing";
 import Arc from "./icons/Arc";
@@ -14,7 +15,7 @@ import Solid from "./icons/Solid";
 
 const tooltipDelay = 1000;
 const DrawingTools = () => {
-    const [layout, tool, defaultEdgeStyle, defaultFillStyle, shapes] = useSelector((state) => [
+    const [layout, tool, defaultEdgeStyle, defaultFillStyle, shapes] = useTypedSelector((state) => [
         state.drawing.present.layout,
         state.app.tool,
         state.app.defaultEdgeStyle,

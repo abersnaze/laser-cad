@@ -1,4 +1,4 @@
-import { Machine } from "xstate";
+import { Machine, assign, AssignAction } from "xstate";
 import * as mouse from "../mouse";
 
 const selectMachine = Machine({
@@ -28,8 +28,16 @@ const selectMachine = Machine({
         },
         insideUp: {
             on: {
-                [mouse.DOWN]: "insideDown",
-                [mouse.LEAVE]: "outsideUp",
+                MOUSE_DOWN: {
+                    actions: assign((context, event) => {
+                        console.log("hi", context, event);
+                        return context;
+                    }) as AssignAction<any, any>,
+                    target: "insideDown",
+                },
+                [mouse.LEAVE]: {
+                    target: "insideDown",
+                },
             },
         },
         outsideDown: {
@@ -46,7 +54,13 @@ const selectMachine = Machine({
         },
         outsideUp: {
             on: {
-                [mouse.DOWN]: "outsideDown",
+                [mouse.DOWN]: {
+                    actions: assign((context, event) => {
+                        console.log("hi", context, event);
+                        return context;
+                    }) as AssignAction<any, any>,
+                    target: "outsideDown",
+                },
                 [mouse.ENTER]: "insideUp",
             },
         },

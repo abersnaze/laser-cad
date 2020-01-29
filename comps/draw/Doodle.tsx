@@ -1,5 +1,6 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { compose, scale, toSVG, translate } from "transformation-matrix";
+import { useTypedSelector } from "../../ducks";
 import { applyTransform, setScale } from "../../ducks/drawing";
 import { mouseDown, mouseMove, mouseUp } from "../../ducks/mouse";
 import Cursor from "./Cursor";
@@ -8,11 +9,10 @@ import Tool from "./tools";
 import ViewPort from "./ViewPort";
 
 const Doodle = ({ }) => {
-    const [drawing, cursor, tool, toolContext] = useSelector((state) => [
+    const [drawing, cursor, tool] = useTypedSelector((state) => [
         state.drawing.present,
         state.app.cursor,
         state.app.tool,
-        state.app.toolContext,
     ]);
     const dispatch = useDispatch();
 

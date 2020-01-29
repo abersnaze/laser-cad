@@ -1,8 +1,8 @@
-import { useSelector } from "react-redux";
+import { useTypedSelector } from "../../ducks";
 import Halo from "./halo";
 
 const Halos = () => {
-    const drawing = useSelector((state) => state.drawing.present);
+    const drawing = useTypedSelector((state) => state.drawing.present);
 
     return <g
         fill="#ff0000"
@@ -21,9 +21,6 @@ const Halos = () => {
                     evt.stopPropagation();
                 }}
                 onMouseLeave={(evt) => {
-                    evt.stopPropagation();
-                }}
-                onClick={(evt) => {
                     evt.stopPropagation();
                 }} />;
         })}

@@ -26,16 +26,22 @@ const Svg = ({
         }
         handleMouseMove(evt);
     };
-    const handleMouseLeave: MouseEventHandler = (evt) => {
+    const handleMouseLeave = (evt) => {
         onMove(undefined);
     };
-    const handleMouseDown: MouseEventHandler = (evt) => {
-        onDown(modified(evt));
+    const handleMouseDown = (evt) => {
+        if (evt.target.getScreenCTM !== undefined) {
+            const CTM = evt.target.getScreenCTM();
+            const loc = { x: (evt.clientX - CTM.e) / CTM.a, y: (evt.clientY - CTM.f) / CTM.d };
+            onDown(loc, modified(evt));
+        } else {
+            onDown(undefined, modified(evt));
+        }
     };
-    const handleMouseUp: MouseEventHandler = (evt) => {
+    const handleMouseUp = (evt) => {
         onUp();
     };
-    const handleContextClick: MouseEventHandler = (evt) => {
+    const handleContextClick = (evt) => {
         evt.preventDefault();
     };
 

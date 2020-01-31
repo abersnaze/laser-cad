@@ -21,7 +21,7 @@ const Doodle = ({ }) => {
         width={drawing.material.width}
         height={drawing.material.height}
         onMove={(loc) => { dispatch(mouseMove(loc)); }}
-        onDown={(modified) => { dispatch(mouseDown(modified)); }}
+        onDown={(loc, modified) => { dispatch(mouseDown(loc, modified)); }}
         onUp={() => { dispatch(mouseUp()); }}
         onZoom={(factor) => {
             if (cursor !== undefined) {

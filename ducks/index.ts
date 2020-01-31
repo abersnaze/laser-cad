@@ -1,4 +1,4 @@
-import {TypedUseSelectorHook, useSelector } from "react-redux";
+import { TypedUseSelectorHook, useSelector } from "react-redux";
 import { applyMiddleware, combineReducers, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import undoable, { excludeAction, groupByActionTypes } from "redux-undo";

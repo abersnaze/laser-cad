@@ -1,4 +1,4 @@
-import { MOVE } from "./mouse";
+import { MOUSE_MOVE } from "./mouse";
 
 const SET_TOOL = "SET_TOOL";
 const SET_DEF_EDGE_STYLE = "SET_DEF_EDGE_STYLE";
@@ -36,7 +36,7 @@ export const applicationReducer = (state = initialApplication, action) => {
             return { ...state, defaultEdgeStyle: action.payload };
         case SET_DEF_FILL_STYLE:
             return { ...state, defaultFillStyle: action.payload };
-        case MOVE:
+        case MOUSE_MOVE:
             return { ...state, cursor: action.payload };
         case TOGGLE_INFO:
             return { ...state, showInfo: !state.showInfo };

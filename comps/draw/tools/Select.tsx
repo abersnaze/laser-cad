@@ -31,8 +31,12 @@ const Select = () => {
                     material={drawing.material}
                     solution={drawing.solution}
                     selected={false}
-                    onMouseEnter={() => { }}
-                    onMouseLeave={() => { }} />)}
+                    onMouseEnter={() => {
+                        // empty
+                    }}
+                    onMouseLeave={() => {
+                        // empty
+                    }} />)}
         </g>
     </>;
 };

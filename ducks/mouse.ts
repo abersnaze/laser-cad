@@ -1,27 +1,27 @@
-import { Point } from "transformation-matrix";
+import { IPoint } from "../lib/IPoint";
 
-export const MOVE = "MOUSE_MOVE";
-export const DOWN = "MOUSE_DOWN";
-export const UP = "MOUSE_UP";
-export const ENTER = "MOUSE_ENTER";
-export const LEAVE = "MOUSE_LEAVE";
+export const MOUSE_MOVE = "MOUSE_MOVE";
+export const MOUSE_DOWN = "MOUSE_DOWN";
+export const MOUSE_UP = "MOUSE_UP";
+export const MOUSE_ENTER = "MOUSE_ENTER";
+export const MOUSE_LEAVE = "MOUSE_LEAVE";
 
-export function mouseMove(cursor: Point) {
-    return { type: MOVE, payload: cursor };
+export function mouseMove(cursor: IPoint) {
+    return { type: MOUSE_MOVE, payload: cursor };
 }
 
-export function mouseDown(modified: boolean) {
-    return { type: DOWN, payload: modified };
+export function mouseDown(cursor: IPoint, modified: boolean) {
+    return { type: MOUSE_DOWN, payload: {modified, cursor } };
 }
 
 export function mouseUp() {
-    return { type: UP };
+    return { type: MOUSE_UP };
 }
 
 export function mouseEnter(target) {
-    return { type: ENTER, payload: target };
+    return { type: MOUSE_ENTER, payload: target };
 }
 
 export function mouseLeave(target) {
-    return { type: LEAVE, payload: target };
+    return { type: MOUSE_LEAVE, payload: target };
 }

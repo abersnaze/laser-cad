@@ -1,6 +1,8 @@
+import { Assignments } from "2d-algebra";
 import React, { useMemo } from "react";
 import { useTypedSelector } from "../../../ducks";
 import * as BSP from "../../../lib/BSP";
+import { IPoint } from "../../../lib/IPoint";
 import Halo from "../halo";
 import Shape from "../shape";
 
@@ -11,85 +13,59 @@ const SelectArea = () => {
         state.app.cursor,
     ]);
 
-    const quad: BSP.IQuad = useMemo(() => BSP.generatorFromPoint(
-        selectState.context.from,
-        drawing.solution,
-        drawing.shapes), [
+    const quad: BSP.IQuad = useMemo(() => {
+        const tmp = BSP.generatorFromPoint(selectState.context.from, drawing.solution, drawing.shapes);
+        return tmp;
+    }, [
         BSP.generatorFromPoint,
         selectState.context.from,
         drawing.solution,
         drawing.shapes,
     ]);
-    const over = BSP.search(quad, cursor);
-    const { width, height } = drawing.material;
 
-    return <>
-        <g>
+    if (cursor === undefined) {
+        return <g>
             {drawing.shapes.map((shape) =>
                 <Shape
                     key={shape.id}
                     px={drawing.px}
                     shape={shape}
                     solution={drawing.solution} />)}
-        </g>
-        <g stroke="green">
-            <ShowTree tree={quad.ne} bounds={{
-                maxX: width, maxY: quad.origin.y,
-                minX: quad.origin.x, minY: 0,
-            }} />
-            <ShowTree tree={quad.nw} bounds={{
-                maxX: quad.origin.x, maxY: quad.origin.y,
-                minX: 0, minY: 0,
-            }} />
-            <ShowTree tree={quad.se} bounds={{
-                maxX: width, maxY: height,
-                minX: quad.origin.x, minY: quad.origin.y,
-            }} />
-            <ShowTree tree={quad.sw} bounds={{
-                maxX: quad.origin.x, maxY: height,
-                minX: 0, minY: quad.origin.y,
-            }} />
-            <line x1={0} y1={quad.origin.y} x2={width} y2={quad.origin.y} />
-            <line y1={0} x1={quad.origin.x} y2={height} x2={quad.origin.x} />
-        </g>
-    </>;
-};
-
-interface IBounds {
-    minX: number;
-    minY: number;
-    maxX: number;
-    maxY: number;
-}
-
-const ShowTree = ({ tree, bounds, vertical = false }:
-    { tree: BSP.IBranch, bounds: IBounds, vertical?: boolean }) => {
-    if (tree === undefined) {
-        return null;
+        </g>;
     }
-    let line;
-    let upperBounds;
-    let lowerBounds;
-    if (vertical) {
-        line = <line x1={bounds.minX} y1={tree.pivot} x2={bounds.maxX} y2={tree.pivot} />;
-        upperBounds = { ...bounds, maxY: tree.pivot };
-        lowerBounds = { ...bounds, minY: tree.pivot };
-    } else {
-        line = <line x1={tree.pivot} y1={bounds.minY} x2={tree.pivot} y2={bounds.maxY} />;
-        upperBounds = { ...bounds, maxX: tree.pivot };
-        lowerBounds = { ...bounds, minX: tree.pivot };
-    }
-    return <>
-        {line}
-        <ShowTree
-            tree={tree.above}
-            bounds={lowerBounds}
-            vertical={!vertical} />
-        <ShowTree
-            tree={tree.below}
-            bounds={upperBounds}
-            vertical={!vertical} />
-    </>;
+
+    const over = BSP.search(quad, cursor);
+    const bounds = {
+        maxX: Math.max(selectState.context.from.x, cursor.x),
+        maxY: Math.max(selectState.context.from.y, cursor.y),
+        minX: Math.min(selectState.context.from.x, cursor.x),
+        minY: Math.min(selectState.context.from.y, cursor.y),
+    };
+
+    return <g>
+        {drawing.shapes.map((shape) =>
+            <Shape
+                key={shape.id}
+                px={drawing.px}
+                shape={shape}
+                solution={drawing.solution} />)}
+        {over.map((shape) => <Halo
+            shape={shape}
+            px={drawing.px}
+            material={drawing.material}
+            solution={drawing.solution}
+            onMouseEnter={() => { /* */ }}
+            onMouseLeave={() => { /* */ }}
+        />)}
+        <rect
+            fill="none"
+            stroke="black"
+            strokeDasharray={drawing.px * 5}
+            x={bounds.minX}
+            y={bounds.minY}
+            width={bounds.maxX - bounds.minX}
+            height={bounds.maxY - bounds.minY} />
+    </g>;
 };
 
 export default SelectArea;

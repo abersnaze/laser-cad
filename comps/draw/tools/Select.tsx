@@ -30,7 +30,6 @@ const Select = () => {
                     px={drawing.px}
                     material={drawing.material}
                     solution={drawing.solution}
-                    selected={false}
                     onMouseEnter={() => {
                         // empty
                     }}

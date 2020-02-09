@@ -8,10 +8,10 @@ const Point = ({ shape, px, solution, onMouseEnter, onMouseLeave }) => {
         fill="red"
         opacity=".2"
         onMouseEnter={() => {
-            console.log("enter", shape.id);
+            // console.log("enter", shape.id);
         }}
         onMouseLeave={() => {
-            console.log("leave", shape.id);
+            // console.log("leave", shape.id);
         }}
     />;
 };

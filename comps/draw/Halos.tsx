@@ -16,7 +16,6 @@ const Halos = () => {
                 material={drawing.material}
                 px={drawing.px}
                 solution={drawing.solution}
-                selected={[]}
                 onMouseEnter={(evt) => {
                     evt.stopPropagation();
                 }}

@@ -14,10 +14,10 @@ const Line = ({ shape, px, solution, onMouseEnter, onMouseLeave }) => {
         opacity=".2"
         strokeWidth={strokeWidth}
         onMouseEnter={() => {
-            console.log("enter", shape.id);
+            // console.log("enter", shape.id);
         }}
         onMouseLeave={() => {
-            console.log("leave", shape.id);
+            // console.log("leave", shape.id);
         }}
     />);
 };

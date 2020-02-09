@@ -8,13 +8,6 @@ const Cursor = ({ }) => {
     }
     const material = drawing.material;
 
-    if (cursor.x < 0 ||
-        cursor.x > material.width ||
-        cursor.y < 0 ||
-        cursor.y > material.height) {
-        return null;
-    }
-
     return (
         <g
             fill="none"

@@ -20,7 +20,17 @@ const Doodle = ({ }) => {
         scale={drawing.scale}
         width={drawing.material.width}
         height={drawing.material.height}
-        onMove={(loc) => { dispatch(mouseMove(loc)); }}
+        onMove={(loc) => {
+            // if (loc === undefined ||
+            //     loc.x < 0 ||
+            //     loc.x > drawing.material.width ||
+            //     loc.y < 0 ||
+            //     loc.y > drawing.material.height) {
+            //     dispatch(mouseMove(undefined));
+            //     return;
+            // }
+            dispatch(mouseMove(loc));
+        }}
         onDown={(loc, modified) => { dispatch(mouseDown(loc, modified)); }}
         onUp={() => { dispatch(mouseUp()); }}
         onZoom={(factor) => {
@@ -43,7 +53,7 @@ const Doodle = ({ }) => {
         }}>
         <g strokeWidth={drawing.px} transform={toSVG(drawing.transform)}>
             <Grid />
-            <Tool tool={tool}/>
+            <Tool tool={tool} />
             <Cursor />
         </g>
     </ViewPort>;

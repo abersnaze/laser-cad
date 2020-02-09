@@ -1,4 +1,4 @@
-import { MouseEventHandler, useEffect } from "react";
+import { useEffect } from "react";
 import { AutoSizer } from "react-virtualized";
 
 function modified(evt) {
@@ -27,7 +27,7 @@ const Svg = ({
         handleMouseMove(evt);
     };
     const handleMouseLeave = (evt) => {
-        onMove(undefined);
+        // onMove(undefined);
     };
     const handleMouseDown = (evt) => {
         if (evt.target.getScreenCTM !== undefined) {
@@ -47,8 +47,14 @@ const Svg = ({
 
     if (typeof window !== "undefined") {
         useEffect(() => {
+            window.addEventListener("mousemove", handleMouseMove, { passive: false });
+            window.addEventListener("mouseup", handleMouseUp, { passive: false });
             window.addEventListener("wheel", handleWheel, { passive: false });
-            return () => window.removeEventListener("wheel", handleWheel);
+            return () => {
+                window.removeEventListener("mousemove", handleMouseMove);
+                window.removeEventListener("mouseup", handleMouseUp);
+                window.removeEventListener("wheel", handleWheel);
+            };
         });
     }
 
@@ -65,10 +71,8 @@ const Svg = ({
                 }
             }
         }}
-        onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         onMouseDown={handleMouseDown}
-        onMouseUp={handleMouseUp}
         onContextMenu={handleContextClick}
     >
         {children}

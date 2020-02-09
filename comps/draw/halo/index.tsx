@@ -6,7 +6,7 @@ const typeComponents = {
     point: Point,
 };
 
-const Halo = ({ shape, px, material, solution, selected, onMouseEnter, onMouseLeave }) => {
+const Halo = ({ shape, px, material, solution, onMouseEnter, onMouseLeave }) => {
     const HaloComp = typeComponents[shape.kind];
     if (HaloComp === undefined) {
         return null;
@@ -16,7 +16,6 @@ const Halo = ({ shape, px, material, solution, selected, onMouseEnter, onMouseLe
         px={px}
         material={material}
         solution={solution}
-        selected={selected}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
     />;

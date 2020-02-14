@@ -1,21 +1,21 @@
 import { useEffect } from "react";
 import { AutoSizer } from "react-virtualized";
+import { compose } from "transformation-matrix";
 
 function modified(evt) {
     return evt.ctrlKey || evt.shiftKey || evt.altKey || evt.metaKey;
 }
 
 const Svg = ({
-    drwWidth, drwHeight, svgWidth, svgHeight, scale,
+    drwWidth, drwHeight, svgWidth, svgHeight, scale, transform,
     onMove, onDown, onUp, onZoom, onPan, onScale,
     children,
 }) => {
     const handleMouseMove = (evt) => {
-        if (evt.target.getScreenCTM !== undefined) {
-            const CTM = evt.target.getScreenCTM();
-            const loc = { x: (evt.clientX - CTM.e) / CTM.a, y: (evt.clientY - CTM.f) / CTM.d };
-            onMove(loc);
-        }
+        evt.preventDefault();
+        const screen = compose(scale, transform);
+        const loc = { x: (evt.clientX - screen.e) / screen.a, y: (evt.clientY - screen.f) / screen.d };
+        onMove(loc);
     };
     const handleWheel = (evt) => {
         evt.preventDefault();
@@ -30,13 +30,9 @@ const Svg = ({
         // onMove(undefined);
     };
     const handleMouseDown = (evt) => {
-        if (evt.target.getScreenCTM !== undefined) {
-            const CTM = evt.target.getScreenCTM();
-            const loc = { x: (evt.clientX - CTM.e) / CTM.a, y: (evt.clientY - CTM.f) / CTM.d };
-            onDown(loc, modified(evt));
-        } else {
-            onDown(undefined, modified(evt));
-        }
+        const screen = compose(scale, transform);
+        const loc = { x: (evt.clientX - screen.e) / screen.a, y: (evt.clientY - screen.f) / screen.d };
+        onDown(loc, modified(evt));
     };
     const handleMouseUp = (evt) => {
         onUp();
@@ -47,8 +43,8 @@ const Svg = ({
 
     if (typeof window !== "undefined") {
         useEffect(() => {
-            window.addEventListener("mousemove", handleMouseMove, { passive: false });
-            window.addEventListener("mouseup", handleMouseUp, { passive: false });
+            window.addEventListener("mousemove", handleMouseMove, {});
+            window.addEventListener("mouseup", handleMouseUp, {});
             window.addEventListener("wheel", handleWheel, { passive: false });
             return () => {
                 window.removeEventListener("mousemove", handleMouseMove);
@@ -64,10 +60,10 @@ const Svg = ({
         preserveAspectRatio="xMidYMid meet"
         ref={(realSvg) => {
             if (realSvg) {
-                const px = 1 / realSvg.getScreenCTM().a;
+                const ctm = realSvg.getScreenCTM();
                 // prevent loops
-                if (scale !== px) {
-                    onScale(px);
+                if (scale.a !== ctm.a) {
+                    onScale(ctm);
                 }
             }
         }}
@@ -80,7 +76,7 @@ const Svg = ({
 };
 
 const ViewPort = ({
-    width: drwWidth, height: drwHeight, scale,
+    width: drwWidth, height: drwHeight, scale, transform,
     onMove, onDown, onUp, onZoom, onPan, onScale,
     children,
 }) =>
@@ -96,6 +92,7 @@ const ViewPort = ({
             onZoom={onZoom}
             onPan={onPan}
             scale={scale}
+            transform={transform}
             onScale={onScale}
             children={children} />
     }</AutoSizer>;

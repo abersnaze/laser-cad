@@ -24,12 +24,12 @@ export interface IBounds {
     maxX: number;
     maxY: number;
 }
-const cover = (...bounds: IBounds[]): IBounds => {
+const cover = (a: IBounds, b: IBounds): IBounds => {
     return {
-        maxX: Math.max(...bounds.map((b) => b.maxX)),
-        maxY: Math.max(...bounds.map((b) => b.maxY)),
-        minX: Math.min(...bounds.map((b) => b.minX)),
-        minY: Math.min(...bounds.map((b) => b.minY)),
+        maxX: Math.max(a.maxX, b.maxX),
+        maxY: Math.max(a.maxY, b.maxY),
+        minX: Math.min(a.minX, b.minX),
+        minY: Math.min(a.minY, b.minY),
     };
 };
 
@@ -68,8 +68,8 @@ function boundsForShape(shape: Shape, solutions: ISolution, cache): IShapeBounds
             };
             break;
         case "line":
-            const aBounds = boundsForShape(shape.a, solutions, cache)[0];
-            const bBounds = boundsForShape(shape.b, solutions, cache)[0];
+            const aBounds = boundsForShape(shape.a, solutions, cache).bounds;
+            const bBounds = boundsForShape(shape.b, solutions, cache).bounds;
             bounds = {
                 bounds: cover(aBounds, bBounds),
                 shape,

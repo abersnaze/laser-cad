@@ -10,7 +10,7 @@ export interface IDrawing {
     layout: string;
     material: Dimensions;
     px: number;
-    scale: number;
+    scale: Matrix;
     shapes: Shape[];
     solution: ISolution;
     transform: Matrix;

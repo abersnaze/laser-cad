@@ -9,16 +9,12 @@ const Grid = ({ }) => {
     const height = drawing.material.height;
     const px = drawing.px;
 
-    // the whole area is filled in so the client
-    // transformation matrix in mouse events are consistent.
     // the outer boarder is inset 1/2 a pixel so it isn't clipped.
     // the inner grid lines are draw on center.
-    return (<g stroke="#ddd">
+    return (<g stroke="#ddd" fill="none">
         <rect
             x={px / 2} y={px / 2}
-            width={width - px} height={height - px}
-            fill="black"
-            fillOpacity="0" />
+            width={width - px} height={height - px} />
         {_.range(units.inch, height, units.inch).map((i) => <line
             key={"h" + i}
             x1={0} y1={i}

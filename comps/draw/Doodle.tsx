@@ -18,6 +18,7 @@ const Doodle = ({ }) => {
 
     return <ViewPort
         scale={drawing.scale}
+        transform={drawing.transform}
         width={drawing.material.width}
         height={drawing.material.height}
         onMove={(loc) => {

@@ -36,10 +36,10 @@ const SelectArea = () => {
 
     const over = BSP.search(quad, cursor);
     const bounds = {
-        maxX: Math.max(selectState.context.from.x, cursor.x),
-        maxY: Math.max(selectState.context.from.y, cursor.y),
-        minX: Math.min(selectState.context.from.x, cursor.x),
-        minY: Math.min(selectState.context.from.y, cursor.y),
+        maxX: Math.min(Math.max(selectState.context.from.x, cursor.x), drawing.material.width),
+        maxY: Math.min(Math.max(selectState.context.from.y, cursor.y), drawing.material.height),
+        minX: Math.max(Math.min(selectState.context.from.x, cursor.x), 0),
+        minY: Math.max(Math.min(selectState.context.from.y, cursor.y), 0),
     };
 
     return <g>
@@ -50,6 +50,7 @@ const SelectArea = () => {
                 shape={shape}
                 solution={drawing.solution} />)}
         {over.map((shape) => <Halo
+            key={shape.id}
             shape={shape}
             px={drawing.px}
             material={drawing.material}

@@ -2,6 +2,7 @@ import { TypedUseSelectorHook, useSelector } from "react-redux";
 import { applyMiddleware, combineReducers, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import undoable, { excludeAction, groupByActionTypes } from "redux-undo";
+import { identity } from "transformation-matrix";
 import { applicationReducer } from "./app";
 import { applyTransform, drawingReducer, setScale } from "./drawing";
 import { selectReducer } from "./tools/select";
@@ -10,7 +11,7 @@ const reducer = combineReducers({
     app: applicationReducer,
     drawing: undoable(drawingReducer, {
         // filter out UI scaling events.
-        filter: excludeAction([setScale(0).type]),
+        filter: excludeAction([setScale(identity()).type]),
         // group together the pan/zoom movements.
         groupBy: groupByActionTypes([applyTransform().type]),
     }),

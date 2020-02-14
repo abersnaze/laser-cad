@@ -1,7 +1,9 @@
+import Circle from "./Circle";
 import Line from "./Line";
 import Point from "./Point";
 
 const typeComponents = {
+    circle: Circle,
     line: Line,
     point: Point,
 };

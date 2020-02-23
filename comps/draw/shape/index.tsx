@@ -8,7 +8,7 @@ const typeComponents = {
     point: Point,
 };
 
-const Shape = ({ shape, px, solution, selected = false, isHighlighted = false }) => {
+const Shape = ({ shape, px, solution, selected, hover }) => {
     const ShapeComp = typeComponents[shape.kind];
     if (ShapeComp === undefined) {
         return null;
@@ -18,7 +18,7 @@ const Shape = ({ shape, px, solution, selected = false, isHighlighted = false })
         px={px}
         solution={solution}
         selected={selected}
-        isHighlighted={isHighlighted}
+        hover={hover}
     />;
 };
 

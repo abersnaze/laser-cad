@@ -1,6 +1,6 @@
 import React from "react";
 import { useTypedSelector } from "../../../ducks";
-import Halo from "../halo";
+import Halos from "../Halos";
 import Shape from "../shape";
 import SelectArea from "./SelectArea";
 
@@ -21,22 +21,11 @@ const Select = () => {
                     key={shape.id}
                     px={drawing.px}
                     shape={shape}
+                    selected={shape.id in selectState.context.selected}
+                    hover={shape.id in selectState.context.hover}
                     solution={drawing.solution} />)}
         </g>
-        <g>
-            {drawing.shapes.map((shape) =>
-                <Halo key={shape.id}
-                    shape={shape}
-                    px={drawing.px}
-                    material={drawing.material}
-                    solution={drawing.solution}
-                    onMouseEnter={() => {
-                        // empty
-                    }}
-                    onMouseLeave={() => {
-                        // empty
-                    }} />)}
-        </g>
+        <Halos />
     </>;
 };
 

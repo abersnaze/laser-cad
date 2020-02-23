@@ -24,6 +24,7 @@ export interface IBounds {
     maxX: number;
     maxY: number;
 }
+
 const cover = (a: IBounds, b: IBounds): IBounds => {
     return {
         maxX: Math.max(a.maxX, b.maxX),
@@ -209,20 +210,27 @@ export const generatorFromPoint = (origin: IPoint, solutions: ISolution, shapes:
     };
 };
 
-const searchTree = (tree: IBranch, to: IPoint, found: Shape[], dir: IDir, allVert: boolean, allHorz: boolean): void => {
+const searchTree = (
+    tree: IBranch,
+    to: IPoint,
+    found: { [key: string]: Shape },
+    dir: IDir,
+    allVert: boolean,
+    allHorz: boolean): void => {
+
     if (tree === undefined) { return; }
     const flipped = dir.flipped;
     searchTree(tree.near, to, found, flipped, allVert, allHorz);
     if ((allVert && allHorz) || dir.isFarther(to, tree.pivot)) {
         if (flipped.isFarther(to, flipped.edge(tree.using.point))) {
-            found.push(tree.using.shape);
+            found[tree.using.shape.id] = tree.using.shape;
         }
         searchTree(tree.far, to, found, flipped, allVert, allHorz);
     }
 };
 
-export const search = (tree: IQuad, to: IPoint): Shape[] => {
-    const found = [];
+export const search = (tree: IQuad, to: IPoint): { [key: string]: Shape } => {
+    const found = {};
 
     if (to.x < tree.origin.x) {
         if (to.y < tree.origin.y) {

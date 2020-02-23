@@ -1,27 +1,25 @@
 import { useTypedSelector } from "../../ducks";
+import { IDrawing } from "../../lib/IDrawing";
+import { hoverOrder } from "../../lib/Shape";
 import Halo from "./halo";
 
-const Halos = () => {
-    const drawing = useTypedSelector((state) => state.drawing.present);
+const Halos = ({ }) => {
+    const drawing: IDrawing = useTypedSelector((state) => state.drawing.present);
 
     return <g
         fill="#ff0000"
         stroke="#ff0000"
-        opacity=".2"
+        strokeWidth={20 * drawing.px}
+        opacity="0"
     >
-        {drawing.shapes.map((shape, idx) => {
+        {drawing.shapes.sort(hoverOrder).map((shape) => {
             return <Halo
-                key={idx}
+                key={shape.id}
                 shape={shape}
                 material={drawing.material}
                 px={drawing.px}
                 solution={drawing.solution}
-                onMouseEnter={(evt) => {
-                    evt.stopPropagation();
-                }}
-                onMouseLeave={(evt) => {
-                    evt.stopPropagation();
-                }} />;
+            />;
         })}
     </g>;
 };

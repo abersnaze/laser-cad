@@ -26,3 +26,10 @@ export interface ICircle {
     center: IPoint;
     through: IPoint;
 }
+
+export const hoverOrder = (a: Shape, b: Shape) => {
+    if (a.kind === "point") {
+        return (1 - 0);
+    }
+    return (0 - 1);
+};

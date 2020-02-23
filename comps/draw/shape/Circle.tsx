@@ -1,4 +1,4 @@
-const Circle = ({ shape, solution }) => {
+const Circle = ({ shape, solution, selected, hover }) => {
     const { x: cxId, y: cyId } = shape.center;
     const { x: txId, y: tyId } = shape.through;
     const cx = solution[cxId];
@@ -13,6 +13,7 @@ const Circle = ({ shape, solution }) => {
         cx={cx}
         cy={cy}
         r={r}
+        filter={selected ? "url(#select)" : hover ? "url(#hover)" : undefined}
     />;
 };
 

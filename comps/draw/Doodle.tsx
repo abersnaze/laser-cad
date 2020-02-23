@@ -52,12 +52,38 @@ const Doodle = ({ }) => {
         onScale={(pixel) => {
             dispatch(setScale(pixel));
         }}>
+        <defs>
+            {dropShadow(1, 1, drawing.px, "select")}
+            {dropShadow(1, 1, drawing.px, "hover")}
+        </defs>
+
         <g strokeWidth={drawing.px} transform={toSVG(drawing.transform)}>
             <Grid />
-            <Tool tool={tool} />
             <Cursor />
+            <Tool tool={tool} />
         </g>
     </ViewPort>;
+};
+
+const dropShadow = (offset: number, blur: number, px: number, name) => {
+    return <filter id={name}
+        x={-blur * px}
+        y={-blur * px}
+        width={`calc(100% + ${2 * blur * px}px)`}
+        height={`calc(100% + ${2 * blur * px}px)`}>
+        <feGaussianBlur in="SourceAlpha" stdDeviation={blur * px} />
+        <feOffset dx={offset * px} dy={offset * px} />
+        <feColorMatrix type="matrix"
+            values={[
+                1, 0, 0, 0, 0,
+                0, 1, 0, 0, 0,
+                0, 0, 1, 0, 1,
+                0, 0, 0, 1, 0].join(" ")} />
+        <feMerge>
+            <feMergeNode />
+            <feMergeNode in="SourceGraphic" />
+        </feMerge>
+    </filter>;
 };
 
 // function draggable(element) {

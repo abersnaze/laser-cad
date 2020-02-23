@@ -1,7 +1,7 @@
 import expression from "2d-algebra";
 import { compose, identity, Matrix } from "transformation-matrix";
 import * as uuid from "uuid/v4";
-import { bed, epilogRepeatability, units } from "../lib/Equipment";
+import { bed, epilogRepeatability, units, wood } from "../lib/Equipment";
 import { IDrawing } from "../lib/IDrawing";
 import { IPoint, Shape } from "../lib/Shape";
 
@@ -26,20 +26,15 @@ export function setLayout(mode: "free" | "array" | "radial") {
     return { type: SET_LAYOUT, payload: mode };
 }
 
-
 export const emptyDrawing = {
-    anchors: [
-    ],
-    constraints: [
-    ],
+    anchors: [],
+    constraints: [],
     layout: "free",
-    material: bed,
+    material: wood,
     px: 1,
     scale: identity(),
-    shapes: [
-    ],
-    solution: {
-    },
+    shapes: [],
+    solution: {},
     transform: identity(),
 } as IDrawing;
 

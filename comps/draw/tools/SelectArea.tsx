@@ -1,9 +1,6 @@
-import { Assignments } from "2d-algebra";
 import React, { useMemo } from "react";
 import { useTypedSelector } from "../../../ducks";
-import * as BSP from "../../../lib/BSP";
-import { IPoint } from "../../../lib/IPoint";
-import Halo from "../halo";
+import * as BSP from "../../../lib/QuadKDTree";
 import Shape from "../shape";
 
 const SelectArea = () => {
@@ -13,26 +10,15 @@ const SelectArea = () => {
         state.app.cursor,
     ]);
 
-    const quad: BSP.IQuad = useMemo(() => {
-        const tmp = BSP.generatorFromPoint(selectState.context.from, drawing.solution, drawing.shapes);
-        return tmp;
-    }, [
+    const quad: BSP.IQuad = useMemo(() => BSP.generatorFromPoint(
+        selectState.context.from,
+        drawing.solution,
+        drawing.shapes), [
         BSP.generatorFromPoint,
         selectState.context.from,
         drawing.solution,
         drawing.shapes,
     ]);
-
-    if (cursor === undefined) {
-        return <g>
-            {drawing.shapes.map((shape) =>
-                <Shape
-                    key={shape.id}
-                    px={drawing.px}
-                    shape={shape}
-                    solution={drawing.solution} />)}
-        </g>;
-    }
 
     const over = BSP.search(quad, cursor);
     const bounds = {
@@ -43,21 +29,20 @@ const SelectArea = () => {
     };
 
     return <g>
-        {drawing.shapes.map((shape) =>
-            <Shape
+        {drawing.shapes.map((shape) => {
+            // const wasSelected = selectState.context.selected[shape.id] !== undefined;
+            const isOver = over[shape.id] !== undefined;
+            // const selected = wasSelected !== !isOver;
+            const selected = isOver;
+
+            return <Shape
                 key={shape.id}
                 px={drawing.px}
                 shape={shape}
-                solution={drawing.solution} />)}
-        {over.map((shape) => <Halo
-            key={shape.id}
-            shape={shape}
-            px={drawing.px}
-            material={drawing.material}
-            solution={drawing.solution}
-            onMouseEnter={() => { /* */ }}
-            onMouseLeave={() => { /* */ }}
-        />)}
+                hover={false}
+                selected={selected}
+                solution={drawing.solution} />;
+        })}
         <rect
             fill="none"
             stroke="black"

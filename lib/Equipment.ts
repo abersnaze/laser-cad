@@ -11,3 +11,4 @@ export const units = {
 export const epilogRepeatability = 0.0005 * units.inch;
 export const epilogAccuracy = 0.01 * units.inch;
 export const bed = { width: 18 * units.inch, height: 12 * units.inch } as Dimensions;
+export const wood = { width: 12 * units.inch, height: 12 * units.inch } as Dimensions;

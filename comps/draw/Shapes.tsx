@@ -10,7 +10,8 @@ const Shapes = () => {
                 shape={shape}
                 px={drawing.px}
                 solution={drawing.solution}
-                isHighlighted={false}
+                hover={false}
+                selected={true}
             />;
         })}
     </g>;

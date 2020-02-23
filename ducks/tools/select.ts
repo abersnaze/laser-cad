@@ -5,8 +5,8 @@ import { MOUSE_DOWN, MOUSE_ENTER, MOUSE_LEAVE, MOUSE_MOVE, MOUSE_UP } from "../m
 const selectMachine = Machine({
     context: {
         from: undefined as IPoint | undefined,
-        highlighted: [],
-        selected: [],
+        hover: {},
+        selected: {},
     },
     id: "select",
     initial: "outsideUp",
@@ -44,7 +44,14 @@ const selectMachine = Machine({
                     target: "insideDown",
                 },
                 [MOUSE_LEAVE]: {
-                    target: "insideDown",
+                    actions: assign((context, event) => {
+                        const { [event.payload]: s, ...hover } = context.hover;
+                        return ({
+                            ...context,
+                            hover,
+                        });
+                    }) as AssignAction<any, any>,
+                    target: "outsideUp",
                 },
             },
         },
@@ -75,7 +82,18 @@ const selectMachine = Machine({
                     })) as AssignAction<any, any>,
                     target: "outsideDown",
                 },
-                [MOUSE_ENTER]: "insideUp",
+                [MOUSE_ENTER]: {
+                    actions: assign((context, event) => {
+                        return ({
+                            ...context,
+                            hover: {
+                                ...context.hover,
+                                [event.payload]: true,
+                            },
+                        });
+                    }) as AssignAction<any, any>,
+                    target: "insideUp",
+                },
             },
         },
     },

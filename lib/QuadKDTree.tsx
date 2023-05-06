@@ -59,10 +59,9 @@ function boundsForShape(shape: Shape, solutions: ISolution, cache): IShapeBounds
         case "anchor":
             bounds = boundsForShape(shape.location, solutions, cache);
             break;
-        case "circle":
+        case "circleCR":
             const { bounds: c } = boundsForShape(shape.center, solutions, cache);
-            const { bounds: t } = boundsForShape(shape.through, solutions, cache);
-            const r = Math.hypot(c.minX - t.minX, c.minY - t.minY);
+            const r = solutions[shape.radius];
             bounds = {
                 bounds: { minX: c.minX - r, minY: c.minY - r, maxX: c.maxX + r, maxY: c.maxY + r },
                 shape,

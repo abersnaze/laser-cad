@@ -5,10 +5,8 @@ import { mouseEnter, mouseLeave } from "../../../ducks/mouse";
 const Circle = ({ shape, px, solution }) => {
     const cx = solution[shape.center.x];
     const cy = solution[shape.center.y];
-    const tx = solution[shape.through.x];
-    const ty = solution[shape.through.y];
+    const r = solution[shape.radius];
     const strokeWidth = 20 * px;
-    const r = Math.hypot(cx - tx, cy - ty);
     const dispatch = useDispatch();
 
     return <circle

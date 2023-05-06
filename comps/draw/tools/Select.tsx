@@ -10,10 +10,6 @@ const Select = () => {
         state.select,
     ]);
 
-    if (["outsideDownArea", "insideDownArea"].includes(selectState.value as string)) {
-        return <SelectArea />;
-    }
-
     return <>
         <g>
             {drawing.shapes.map((shape) =>

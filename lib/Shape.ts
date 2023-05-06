@@ -1,3 +1,5 @@
+import { Variable } from "2d-algebra/lib/node/Variable";
+
 export type Shape = IPoint | IAnchor | ILine | ICircle;
 
 export interface IPoint {
@@ -22,9 +24,9 @@ export interface ILine {
 
 export interface ICircle {
     id: string;
-    kind: "circle";
+    kind: "circleCR";
     center: IPoint;
-    through: IPoint;
+    radius: string;
 }
 
 export const hoverOrder = (a: Shape, b: Shape) => {

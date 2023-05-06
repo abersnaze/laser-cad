@@ -1,4 +1,5 @@
 import { IPoint } from "../lib/IPoint";
+import { IQuad } from "../lib/QuadKDTree";
 
 export const MOUSE_MOVE = "MOUSE_MOVE";
 export const MOUSE_DOWN = "MOUSE_DOWN";
@@ -10,8 +11,8 @@ export function mouseMove(cursor: IPoint) {
     return { type: MOUSE_MOVE, payload: cursor };
 }
 
-export function mouseDown(cursor: IPoint, modified: boolean) {
-    return { type: MOUSE_DOWN, payload: {modified, cursor } };
+export function mouseDown(cursor: IPoint, modified: boolean, makeTree: () => IQuad) {
+    return { type: MOUSE_DOWN, payload: {modified, cursor, makeTree } };
 }
 
 export function mouseUp() {

@@ -1,11 +1,8 @@
 const Circle = ({ shape, solution, selected, hover }) => {
     const { x: cxId, y: cyId } = shape.center;
-    const { x: txId, y: tyId } = shape.through;
     const cx = solution[cxId];
     const cy = solution[cyId];
-    const tx = solution[txId];
-    const ty = solution[tyId];
-    const r = Math.hypot(cx - tx, cy - ty);
+    const r = solution[shape.radius];
 
     return <circle
         fill="none"

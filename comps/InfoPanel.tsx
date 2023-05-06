@@ -2,6 +2,7 @@ import React from "react";
 import { Accordion } from "semantic-ui-react";
 import { useTypedSelector } from "../ducks";
 import Num from "./Num";
+import { NO_TREE } from "../ducks/tools/select";
 
 const InfoPanel = () => {
     const [expanded, setExpanded] = React.useState(new Set());
@@ -82,6 +83,8 @@ const InfoPanel = () => {
                     </dd>
                     <dt>Select State</dt>
                     <dd>{select.value}</dd>
+                    <dd>{select.makeTree === NO_TREE ? "no () => tree" : "() => tree"}</dd>
+                    <dd>{select.tree === undefined ? "no tree" : "tree"}</dd>
                 </dl>
             </Accordion.Content>
         </Accordion>

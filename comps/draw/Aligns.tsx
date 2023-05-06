@@ -16,15 +16,12 @@ const Aligns = () => {
                     // state.app.selected
                 }}
                 onMouseEnter={(evt) => {
-                    evt.stopPropagation();
                     // dispatch(setHighlight([shape], "cursor"));
                 }}
                 onMouseLeave={(evt) => {
-                    evt.stopPropagation();
                     // dispatch(clearHighlight("cursor"));
                 }}
                 onClick={(evt) => {
-                    evt.stopPropagation();
                     // dispatch((evt.shiftKey)
                     //     ? toggleSelection()
                     //     : setSelection());

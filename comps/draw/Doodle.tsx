@@ -3,6 +3,7 @@ import { compose, scale, toSVG, translate } from "transformation-matrix";
 import { useTypedSelector } from "../../ducks";
 import { applyTransform, setScale } from "../../ducks/drawing";
 import { mouseDown, mouseMove, mouseUp } from "../../ducks/mouse";
+import * as QuadKDTree from "../../lib/QuadKDTree";
 import Cursor from "./Cursor";
 import Grid from "./Grid";
 import Tool from "./tools";
@@ -32,7 +33,10 @@ const Doodle = ({ }) => {
             // }
             dispatch(mouseMove(loc));
         }}
-        onDown={(loc, modified) => { dispatch(mouseDown(loc, modified)); }}
+        onDown={(loc, modified) => {
+            const makeTree = () => QuadKDTree.generatorFromPoint(loc, drawing.solution, drawing.shapes);
+            dispatch(mouseDown(loc, modified, makeTree));
+        }}
         onUp={() => { dispatch(mouseUp()); }}
         onZoom={(factor) => {
             if (cursor !== undefined) {
@@ -53,8 +57,8 @@ const Doodle = ({ }) => {
             dispatch(setScale(pixel));
         }}>
         <defs>
-            {dropShadow(1, 1, drawing.px, "select")}
-            {dropShadow(1, 1, drawing.px, "hover")}
+            {dropShadow(1, 2, drawing.px, "select")}
+            {dropShadow(1, 2, drawing.px, "hover")}
         </defs>
 
         <g strokeWidth={drawing.px} transform={toSVG(drawing.transform)}>
@@ -72,10 +76,9 @@ const dropShadow = (offset: number, blur: number, px: number, name) => {
         width={`calc(100% + ${2 * blur * px}px)`}
         height={`calc(100% + ${2 * blur * px}px)`}>
         <feGaussianBlur in="SourceAlpha" stdDeviation={blur * px} />
-        <feOffset dx={offset * px} dy={offset * px} />
         <feColorMatrix type="matrix"
             values={[
-                1, 0, 0, 0, 0,
+                1, 0, 0, 0, 1,
                 0, 1, 0, 0, 0,
                 0, 0, 1, 0, 1,
                 0, 0, 0, 1, 0].join(" ")} />

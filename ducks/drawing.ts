@@ -38,12 +38,25 @@ export const emptyDrawing = {
     transform: identity(),
 } as IDrawing;
 
-const ax = uuid();
-const ay = uuid();
-const bx = uuid();
-const by = uuid();
+const mx = uuid();
+const my = uuid();
+const nx = uuid();
+const ny = uuid();
+const ox = uuid();
+const oy = uuid();
+const m: IPoint = { id: uuid(), kind: "point", x: mx, y: my };
+const n: IPoint = { id: uuid(), kind: "point", x: nx, y: ny };
+const o: IPoint = { id: uuid(), kind: "point", x: ox, y: oy };
+emptyDrawing.anchors.push({ id: uuid(), kind: "anchor", location: m });
+emptyDrawing.anchors.push({ id: uuid(), kind: "anchor", location: n });
+emptyDrawing.anchors.push({ id: uuid(), kind: "anchor", location: o });
+
 const cx = uuid();
 const cy = uuid();
+const r = uuid();
+const pointC: Shape = { id: uuid(), kind: "point", x: cx, y: cy };
+const circleCR: Shape = { id: uuid(), kind: "circleCR", center: pointC, radius: r };
+
 const px = uuid();
 const py = uuid();
 const qx = uuid();
@@ -51,27 +64,24 @@ const qy = uuid();
 const pointP: Shape = { id: uuid(), kind: "point", x: px, y: py };
 const pointQ: Shape = { id: uuid(), kind: "point", x: qx, y: qy };
 const linePQ: Shape = { id: uuid(), kind: "line", a: pointP, b: pointQ };
-const circlePQ: Shape = { id: uuid(), kind: "circle", center: pointP, through: pointQ };
-const a: IPoint = { id: uuid(), kind: "point", x: ax, y: ay };
-const b: IPoint = { id: uuid(), kind: "point", x: bx, y: by };
-const c: IPoint = { id: uuid(), kind: "point", x: cx, y: cy };
-emptyDrawing.anchors.push({ id: uuid(), kind: "anchor", location: a });
-emptyDrawing.anchors.push({ id: uuid(), kind: "anchor", location: b });
-emptyDrawing.anchors.push({ id: uuid(), kind: "anchor", location: c });
-emptyDrawing.constraints.push({ ex: expression(bed.width).dividedBy(2).eq(ax) });
-emptyDrawing.constraints.push({ ex: expression(bed.height).dividedBy(2).eq(ay) });
-emptyDrawing.constraints.push({ ex: expression(bed.width).dividedBy(2).plus(units.inch).eq(bx) });
-emptyDrawing.constraints.push({ ex: expression(bed.height).dividedBy(2).eq(by) });
-emptyDrawing.constraints.push({ ex: expression(bed.width).dividedBy(2).eq(cx) });
-emptyDrawing.constraints.push({ ex: expression(bed.height).dividedBy(2).plus(units.inch).eq(cy) });
+
+emptyDrawing.constraints.push({ ex: expression(bed.width).dividedBy(2).eq(mx) });
+emptyDrawing.constraints.push({ ex: expression(bed.height).dividedBy(2).eq(my) });
+emptyDrawing.constraints.push({ ex: expression(bed.width).dividedBy(2).plus(units.inch).eq(nx) });
+emptyDrawing.constraints.push({ ex: expression(bed.height).dividedBy(2).eq(ny) });
+emptyDrawing.constraints.push({ ex: expression(bed.width).dividedBy(2).eq(ox) });
+emptyDrawing.constraints.push({ ex: expression(bed.height).dividedBy(2).plus(units.inch).eq(oy) });
 emptyDrawing.shapes.push(linePQ);
 emptyDrawing.shapes.push(pointP);
 emptyDrawing.shapes.push(pointQ);
-emptyDrawing.shapes.push(circlePQ);
+emptyDrawing.shapes.push(circleCR);
 emptyDrawing.solution[qx] = 52;
 emptyDrawing.solution[qy] = 140;
 emptyDrawing.solution[px] = 80;
 emptyDrawing.solution[py] = 80;
+emptyDrawing.solution[cx] = 80;
+emptyDrawing.solution[cy] = 80;
+emptyDrawing.solution[r] = Math.hypot(52 - 80, 140 - 80);
 
 // [
 //     [422, 37],

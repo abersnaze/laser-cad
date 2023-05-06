@@ -3,7 +3,7 @@ import Line from "./Line";
 import Point from "./Point";
 
 const typeComponents = {
-    circle: Circle,
+    circleCR: Circle,
     line: Line,
     point: Point,
 };
